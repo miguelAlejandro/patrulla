@@ -1,0 +1,35 @@
+body{
+    background-image: url('https://s2.best-wallpaper.net/wallpaper/1920x1080/1805/Planet-earth-surface-atmosphere_1920x1080.jpg');
+}
+
+.body-login{
+    
+    color: white;
+    height: 400px;
+    width: 500px;
+    background-color: rgba(0,0,0,0.5) !important;
+
+    border-radius: 14px 14px 14px 14px;
+    -moz-border-radius: 14px 14px 14px 14px;
+    -webkit-border-radius: 14px 14px 14px 14px;
+    border: 0px solid #000000;
+
+    
+    
+    position: absolute;
+    top:15%;
+	left:38%;
+    
+}
+.login{
+    height: 400px;
+    width: 480px;
+    padding-top: 20px;
+    scroll-padding-left: 30px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.enviar{
+    align-items: center;
+}
