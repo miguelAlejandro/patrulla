@@ -9,32 +9,34 @@ function Login() {
     function LoginUp(e) {
         // e.preventDefault();
         console.log('Login Up');
-        console.log(e.target.elements.email.value);
+        console.log(e.target.elements.emailUp.value);
+        if(e.target.elements.PasswordUp1.value == e.target.elements.PasswordUp2.value){
 
-        axios.post('/api/sign_up', {
-            
-            name: e.target.elements.user.value,
-            email: e.target.elements.email.value,
-            password: e.target.elements.password.value,
-            role: e.target.elements.type.value,
-            image: null,
-            
-          })
-          .then(function (response) {
-            console.log(response);
-            if(response){
-                alert("Login Up");
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-            if(error){
-                alert("Login Up Error: ${error}");
-            }
-          })
-          .then(function () {
-            // always executed
-          }); 
+            axios.post('/api/sign_up', {
+                
+                name: e.target.elements.user.value,
+                email: e.target.elements.emailUp.value,
+                password: e.target.elements.PasswordUp1.value,
+                role: e.target.elements.type.value,
+                image: null,
+                
+              })
+              .then(function (response) {
+                console.log(response);
+                if(response){
+                    alert("Login Up");
+                }
+              })
+              .catch(function (error) {
+                console.log(error);
+                if(error){
+                    alert("Login Up Error: ${error}");
+                }
+              })
+              .then(function () {
+                // always executed
+              }); 
+        }
 
       }
 
@@ -45,7 +47,7 @@ function Login() {
         axios.post('/api/sign_in', {
            
             email: e.target.elements.email.value,
-            password: e.target.elements.password.value,
+            password: e.target.elements.Password.value,
             
           })
           .then(function (response) {
@@ -112,19 +114,19 @@ function Login() {
                                 <Form.Label>User</Form.Label>
                                 <Form.Control type="text" placeholder="user" />
                             </Form.Group>
-                            <Form.Group controlId="email-up">
+                            <Form.Group controlId="emailUp">
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control type="text" placeholder="@email" />
                             </Form.Group>
-                            <Form.Group controlId="Password-up-1">
+                            <Form.Group controlId="PasswordUp1">
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password" placeholder="Password" />
                             </Form.Group>
-                            <Form.Group controlId="Password-up-2">
+                            <Form.Group controlId="PasswordUp2">
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password" placeholder="Password" />
                             </Form.Group>
-                            <Form.Group controlId="exampleForm.ControlSelect1">
+                            <Form.Group controlId="type">
                             <Form.Label>Type</Form.Label>
                             <Form.Control as="select">
                                 <option>Usuario</option>
@@ -132,7 +134,7 @@ function Login() {
                                 <option>Sensor</option>
                             </Form.Control>
                             </Form.Group>
-                            <Button variant="primary" type="submit" href="/mapas">
+                            <Button variant="primary" type="submit">
                                 Crear
                             </Button>
                         </Form>
