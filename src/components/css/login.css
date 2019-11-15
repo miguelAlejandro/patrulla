@@ -1,12 +1,12 @@
 body{
-    background-image: url('https://s2.best-wallpaper.net/wallpaper/1920x1080/1805/Planet-earth-surface-atmosphere_1920x1080.jpg');
+    background-image: url('https://www.babooni.com/img/IoT2.jpg');
 }
 
 .body-login{
     
     color: white;
-    height: 400px;
-    width: 500px;
+    height: 555px;
+    width: 850px;
     background-color: rgba(0,0,0,0.5) !important;
 
     border-radius: 14px 14px 14px 14px;
@@ -14,22 +14,30 @@ body{
     -webkit-border-radius: 14px 14px 14px 14px;
     border: 0px solid #000000;
 
-    
-    
     position: absolute;
-    top:15%;
-	left:38%;
+    top:15vh;
+	left:30vw;
     
 }
-.login{
-    height: 400px;
-    width: 480px;
+.Sign_in{
+    height: 300px;
+    width: 400px;
     padding-top: 20px;
     scroll-padding-left: 30px;
     justify-content: center;
     align-items: center;
     padding: 10px;
 }
+.Sign_up{
+    height: 300px;
+    width: 350px;
+    padding-top: 20px;
+    scroll-padding-left: 30px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
 .enviar{
     align-items: center;
 }
