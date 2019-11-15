@@ -1,12 +1,17 @@
 body{
-    background-image: url('https://www.babooni.com/img/IoT2.jpg');
+    background-image: url('https://images.acvmagazine.com/file/BIT-Magazine-Images/shutterstock_1028403757.jpg');
 }
 
 .body-login{
     
+    
+    
+}
+.Sign_in{
+    padding: 25px;
     color: white;
-    height: 555px;
-    width: 850px;
+    height: 550px;
+    width: 450px;
     background-color: rgba(0,0,0,0.5) !important;
 
     border-radius: 14px 14px 14px 14px;
@@ -14,28 +19,21 @@ body{
     -webkit-border-radius: 14px 14px 14px 14px;
     border: 0px solid #000000;
 
-    position: absolute;
-    top:15vh;
-	left:30vw;
-    
-}
-.Sign_in{
-    height: 300px;
-    width: 400px;
-    padding-top: 20px;
-    scroll-padding-left: 30px;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
+  
+
 }
 .Sign_up{
-    height: 300px;
-    width: 350px;
-    padding-top: 20px;
-    scroll-padding-left: 30px;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
+    padding: 25px;
+    color: white;
+    height: 600px;
+    width: 450px;
+    background-color: rgba(0,0,0,0.5) !important;
+
+    border-radius: 14px 14px 14px 14px;
+    -moz-border-radius: 14px 14px 14px 14px;
+    -webkit-border-radius: 14px 14px 14px 14px;
+    border: 0px solid #000000;
+    
 }
 
 .enviar{
