@@ -159,7 +159,7 @@ function Login(props) {
 
 const mapStateToProps = (state) => {
     return {
-        login: state.login,
+        login: state.articles.user,
     }
 }
 

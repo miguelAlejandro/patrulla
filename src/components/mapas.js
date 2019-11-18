@@ -7,7 +7,11 @@ import SimpleMap from './google_map';
 
 import data from '../data';
 
-function Mapas() {
+function Mapas(props) {
+  
+ 
+
+
   const alertas = data.docs[0].alertas;
   const sensores = data.docs[0].sensores;
   // const patrullas = data.docs[0].patrullas;
@@ -63,26 +67,33 @@ function Mapas() {
   );
 
   const listaDeSensores = sensores.map((sensor, id) =>
-    <div key={id + "-ls"} className="listaDesensores">
+    <Col xs lg={4}>
+      <div key={id + "-ls"} className="listaDesensores">
+        <Row>
+          <Col xs lg={12}>
+            <h4>{sensor.name}</h4>
+          </Col>
+        </Row>
+        <Row>
+            <Col xs lg={12}>
+              <h6>Valor Maximo = {sensor.valMaximo}</h6>
+            </Col>
+            <Col xs lg={12}>
+              <h6>Valor Minimo = {sensor.ValMinimo}</h6>
+            </Col>
 
 
-      <Col xs lg={12}>
-        <Col xs lg={12}>
-          <h4>{sensor.name}</h4>
-        </Col>
-        <Col xs lg={4}>
-          <h5>Valor : {sensor.val}</h5>
-        </Col>
-        <Col xs lg={4}>
-          <h6>Valor Maximo : {sensor.valMaximo}</h6>
-          <h6>Valor Minimo : {sensor.valMinimo}</h6>
-        </Col>
-        <Col xs lg={4}>
-          <h6>Ubicacion: {sensor.ubicacion}</h6>
-        </Col>
-      </Col>
+            <Col xs lg={12}>
+              <h6>Ubicacion : {sensor.ubicacion}</h6>
+            </Col>
+            <Col xs lg={12}>
+              <h6>Valor = {sensor.val}</h6>
+            </Col>
+        </Row>
+        <hr></hr>
+      </div>
+    </Col>
 
-    </div>
   );
   return (
     <div className="body-map">
@@ -128,24 +139,25 @@ function Mapas() {
               <Col xs lg={12}>
                 <div className="sensores">
                   <h4>Lista de sensores</h4>
-                  <div className="sensore_bar">
+                  <Row className="sensore_bar">
                     {
                       listaDeSensores
                     }
 
-                  </div>
+                  </Row>
                 </div>
               </Col>
 
               <Col xs lg={12}>
                 <div className="patrullas">
                   <h4>Lista de patrullas</h4>
-                  <div className="sensore_bar">
+                  <Row className="sensore_bar">
+
                     {
                       listaDeSensores
                     }
 
-                  </div>
+                  </Row>
                 </div>
               </Col>
 
