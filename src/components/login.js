@@ -1,127 +1,125 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/login.css';
 import { Form, Button, Row, Col, Container } from 'react-bootstrap';
 import axios from 'axios';
 
-function Login() {
-    function isValidEmail(mail) {
-        return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(mail);
+
+function isValidEmail(mail) {
+    return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(mail);
+}
+
+function loginUp(e) {
+    e.preventDefault();
+    console.log('Login Up');
+    var validar = true;
+    if (e.target.elements.PasswordUp1.value !== e.target.elements.PasswordUp2.value) {
+        alert("Error en el password");
+        validar = false;
     }
 
-    function LoginUp(e) {
-        e.preventDefault();
-        console.log('Login Up');
-        var validar = true;
-        if(e.target.elements.PasswordUp1.value != e.target.elements.PasswordUp2.value){
-            alert("Error en el password");
-            validar = false;
-        }
-
-        if(isValidEmail(e.target.elements.emailUp.value) != true){
-            alert("Error en el email");
-            validar = false;
-        }
-
-        if (validar) {
-            const docs = {
-                name: e.target.elements.user.value,
-                email: e.target.elements.emailUp.value,
-                password: e.target.elements.PasswordUp1.value,
-                role: e.target.elements.type.value,
-                image: null,
-            }
-
-            axios.post('http://localhost:3000/api/sign_up', { docs })
-                .then(function (response) {
-                    console.log(response.data);
-                    if (response) {
-                        alert("Login Up");
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                    if (error) {
-                        alert(`Login Up Error: ${error}`);
-                    }
-                })
-                .then(function () {
-                    // always executed
-                });
-        }
-
+    if (isValidEmail(e.target.elements.emailUp.value) !== true) {
+        alert("Error en el email");
+        validar = false;
     }
 
-    function LoginIn(e) {
-        e.preventDefault();
-        console.log('Login In');
-        if(isValidEmail(e.target.elements.email.value)){
-            const docs = {
-                email: e.target.elements.email.value,
-                password: e.target.elements.Password.value,
-            }
-            axios.post('http://localhost:3000/api/sign_in', { docs })
-                .then(function (response) {
-                    console.log(response);
-                    if (response) {
-                        alert(`Login In data { message: ${response.data.message} , token :${response.data.token} } `);
-                        window.location.href = "/mapas";
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                    if (error) {
-                        alert(`Login In Error: ${error}`);
-                    }
-                })
-                .then(function () {
-                    // always executed
-                });
-        }else{
-            alert("Email no valido");
+    if (validar) {
+        const docs = {
+            name: e.target.elements.user.value,
+            email: e.target.elements.emailUp.value,
+            password: e.target.elements.PasswordUp1.value,
+            rol: e.target.elements.type.value,
+            image: null,
         }
-        
+
+        axios.post('http://localhost:3000/api/sign_up', { docs })
+            .then(function (response) {
+                console.log(response.data);
+                if (response) {
+                    alert("Login Up");
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error) {
+                    alert(`Login Up Error: ${error}`);
+                }
+            })
+            .then(function () {
+                // always executed
+            });
     }
+
+}
+
+function loginIn(e) {
+    e.preventDefault();
+    console.log('Login In');
+    if (isValidEmail(e.target.elements.email.value)) {
+        const docs = {
+            email: e.target.elements.email.value,
+            password: e.target.elements.Password.value,
+        }
+        axios.post('http://localhost:3000/api/sign_in', { docs })
+            .then(function (response) {
+                console.log(response);
+                if (response) {
+                    alert(`Login In data { message: ${response.data.message} , token :${response.data.token} } `);
+                    window.location.href = "/mapas";
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+                if (error) {
+                    alert(`Login In Error: ${error}`);
+                }
+            })
+            .then(function () {
+                // always executed
+            });
+    } else {
+        alert("Email no valido");
+    }
+
+}
+
+//Component Login
+function Login(props) {
+
     return (
         <div className="body-login">
             <Container>
                 <Row>
-                    <Col sm={6}>
+                    <Col xs lg={6}>
                         <div className="Sign_in">
+                            <h4>Sign in</h4>
                             
-                            
-                            <br></br>
-                            <br></br>
-
-                            <h2>Sign in</h2>
-                            <hr></hr>
-                            <Form onSubmit={(e) => LoginIn(e)}>
+                            <Form onSubmit={(e) => loginIn(e)}>
                                 <Form.Group controlId="email">
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control type="text" placeholder="@email" />
                                 </Form.Group>
                                 <br></br>
-                                <br></br>
+                                
                                 <Form.Group controlId="Password">
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control type="password" placeholder="Password" />
                                 </Form.Group>
                                 <br></br>
-                                <br></br>
+                                
                                 <Button variant="primary" type="submit" >
                                     Login
                             </Button>
                             </Form>
                         </div>
                     </Col>
-
-                    
-
-                    <Col sm={6}>
+                    <br></br>
+                    <Col  xs lg={6}>
                         <div className="Sign_up">
-                            <h2>Sign up</h2>
-                            <hr></hr>
-                            <Form onSubmit={(e) => LoginUp(e)}>
+                            <h4>Sign up</h4>
+                            <Form onSubmit={(e) => loginUp(e)}>
                                 <Form.Group controlId="user">
                                     <Form.Label>User</Form.Label>
                                     <Form.Control type="text" placeholder="user" />
@@ -155,9 +153,17 @@ function Login() {
                     </Col>
                 </Row>
             </Container>
-
         </div>
     );
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        login: state.login,
+    }
+}
+
+const wrapper = connect(mapStateToProps);
+const component = wrapper(Login);
+
+export default component;

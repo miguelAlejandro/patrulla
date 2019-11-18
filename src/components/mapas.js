@@ -2,90 +2,114 @@ import React from 'react';
 import './css/mapas.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Row, Col, Button, Container } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import SimpleMap from './google_map';
 
+import data from '../data';
+
 function Mapas() {
+  const alertas = data.docs[0].alertas;
+  const sensores = data.docs[0].sensores;
+  // const patrullas = data.docs[0].patrullas;
+
+  const notificaciones = alertas.map((alerta, id) =>
+    <div key={id + "-nt"} >
+      <br></br>
+      <div className="nota">
+        <Row>
+          <Col xs lg={6}>
+            <h4>{alerta.name}</h4>
+          </Col>
+          <Col xs lg={6}>
+            <div className="button-enviar-cerrar">
+              <Button variant="outline-danger">X</Button>
+            </div>
+            <div className="button-enviar-enviar">
+              <Button variant="success">Enviar</Button>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+
+          <Col xs lg={6}>
+            <hr></hr>
+            <h6>Valor: {alerta.val}</h6>
+            <h6>Valor Maximo: {alerta.valMaximo}</h6>
+            <h6>Valor Minimo: {alerta.ValMinimo}</h6>
+
+          </Col>
+          <Col xs lg={6}>
+            <hr></hr>
+
+            <h6>Ubicacion: {alerta.ubicacion}</h6>
+            <h6>Hora: {alerta.hora}</h6>
+            <h6>Fecha: {alerta.fecha}</h6>
+            <hr></hr>
+          </Col>
+        </Row>
+        <Row>
+
+          <Col xs lg={12}>
+
+            <h6>Detalles:</h6>
+
+            <p>Lorem ipsum dolor sit amet consectetur adipiscing, elit duis tempus fringilla id. Maecenas dictum hendrerit tortor placerat</p>
+
+          </Col>
+
+        </Row>
+      </div>
+    </div>
+  );
+
+  const listaDeSensores = sensores.map((sensor, id) =>
+    <div key={id + "-ls"} className="listaDesensores">
+
+
+      <Col xs lg={12}>
+        <Col xs lg={12}>
+          <h4>{sensor.name}</h4>
+        </Col>
+        <Col xs lg={4}>
+          <h5>Valor : {sensor.val}</h5>
+        </Col>
+        <Col xs lg={4}>
+          <h6>Valor Maximo : {sensor.valMaximo}</h6>
+          <h6>Valor Minimo : {sensor.valMinimo}</h6>
+        </Col>
+        <Col xs lg={4}>
+          <h6>Ubicacion: {sensor.ubicacion}</h6>
+        </Col>
+      </Col>
+
+    </div>
+  );
   return (
     <div className="body-map">
       <Row>
-        <Col sm={5}>
-          <Col sm={12}>
+        <Col xs lg={4}>
+          <Col xs lg={12}>
             <div className="titulo-Notificaciones">
               <h3>Notificaciones</h3>
+
             </div>
           </Col>
 
-          <Col sm={12}>
-            <Container>
-
-              <div className="notificaciones">
-                {
-                  [
-                    '12',
-                    '14',
-                    '41',
-                    '21',
-                    '12',
-                    '54',
-                    '34',
-                    '32',
-                    '52',
-                    '32',
-                    '100',
-                    '233',
-                    '254',
-                    '345',
-                    '23',
-                    '23',
-                    '28',
-                    '44',
-                  ].map((variant, idx) => (
-                    <div key={idx} >
-                      <br></br>
-                      <div className="nota">
-                        <Row>
-                          <Col>
-                            <h4>Sensor {idx + 1}</h4>
-                          </Col>
-
-
-                          <Col>
-                            <div className="button-enviar-cerrar">
-                              <Button variant="success">Enviar</Button>
-                              <Button variant="outline-danger">X</Button>
-
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row>
-
-                          <Col sm={12}>
-                            <hr></hr>
-                            <h6>Valor: {variant} V</h6>
-                            <h6>Ubicacion: (123, 2323, 2312, 232)</h6>
-                            <h6>Tiempo: 2 hora</h6>
-                            <h6>fecha: 20/01/2012</h6>
-                          </Col>
-                        </Row>
-
-                      </div>
-
-                    </div>
-                  ))
-                }
-              </div>
-
-            </Container>
+          <Col xs lg={12}>
+            <Col xs lg={12} className="notificaciones">
+              {
+                notificaciones
+              }
+            </Col>
           </Col>
         </Col>
 
 
 
-        <Col sm={7}>
+        <Col xs lg={8}>
           <div className="notificaciones">
             <Row>
-              <Col sm={12}>
+              <Col xs lg={12}>
                 <div className="titulo-google-map">
                   <h2>Google Map</h2>
                 </div>
@@ -95,49 +119,37 @@ function Mapas() {
                 </div>
               </Col>
 
-              <Col sm={12}>
-                <Col sm={12}>
-                  <div className="titulo-Informacion">
-                    <h3>Informacion</h3>
-                  </div>
-                </Col>
-
-                <Col sm={12}>
-                  <Col sm={12}>
-                    <div className="sensores">
-                      <h4>Lista de sensores</h4>
-                      {
-                        [
-                          'Sensor 1',
-                          'Sensor 2',
-                          'Sensor 3',
-                          'Sensor 4',
-
-                        ].map((variant, idx) => (
-                          <div>{variant}</div>
-                        ))
-                      }
-                    </div>
-                  </Col>
-
-                  <Col sm={12}>
-                    <div className="patrullas">
-                      <h4>Lista de patrullas</h4>
-                      {
-                        [
-                          'Patrulla 1',
-                          'Patrulla 2',
-                          'Patrulla 3',
-
-
-                        ].map((variant, idx) => (
-                          <div>{variant}</div>
-                        ))
-                      }
-                    </div>
-                  </Col>
-                </Col>
+              <Col xs lg={12}>
+                <div className="titulo-Informacion">
+                  <h3>Informacion</h3>
+                </div>
               </Col>
+
+              <Col xs lg={12}>
+                <div className="sensores">
+                  <h4>Lista de sensores</h4>
+                  <div className="sensore_bar">
+                    {
+                      listaDeSensores
+                    }
+
+                  </div>
+                </div>
+              </Col>
+
+              <Col xs lg={12}>
+                <div className="patrullas">
+                  <h4>Lista de patrullas</h4>
+                  <div className="sensore_bar">
+                    {
+                      listaDeSensores
+                    }
+
+                  </div>
+                </div>
+              </Col>
+
+
             </Row>
           </div>
 

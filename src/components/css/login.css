@@ -8,10 +8,10 @@ body{
     
 }
 .Sign_in{
-    padding: 25px;
+    padding: 10px;
     color: white;
-    height: 550px;
-    width: 450px;
+    height: 350px;
+    width: 350px;
     background-color: rgba(0,0,0,0.5) !important;
 
     border-radius: 14px 14px 14px 14px;
@@ -23,10 +23,10 @@ body{
 
 }
 .Sign_up{
-    padding: 25px;
+    padding: 10px;
     color: white;
-    height: 600px;
-    width: 450px;
+    height: 540px;
+    width: 350px;
     background-color: rgba(0,0,0,0.5) !important;
 
     border-radius: 14px 14px 14px 14px;

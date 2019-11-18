@@ -11,6 +11,7 @@
     -webkit-box-shadow: 0px 0px 69px 24px rgba(0,0,0,0.81);
     -moz-box-shadow: 0px 0px 69px 24px rgba(0,0,0,0.81);
     box-shadow: 0px 0px 69px 24px rgba(0,0,0,0.81);
+    width: 100vw;
 }
 .nota{
     color: white;
@@ -22,25 +23,69 @@
     -webkit-border-radius: 14px 14px 14px 14px;
     border: 0px solid #000000;
 
-    height: 230px;
+    height: 350px;
+    width: 100%;
 
    
 }
 h6{
-    padding-left: 20px;
+    padding-left: 10px;
 }
 h4{
-    padding-left: 15px;
-    padding-top: 15px;
+    padding-left: 10px;
+    padding-top: 10px;
 }
 .button-enviar-cerrar{
-    padding-left: 42%;
+    float: right;
+   
     padding-top: 10px;
+    padding-right: 10px;
+    padding-left: 5px;
     
 }
-.sensores{
-
+.button-enviar-enviar{
+    float: right;
+   
+    padding-top: 10px;
+    padding-right: 5px;
+    padding-left: 5px;
+    
 }
+.listaDesensores{
+    width: 350px;
+    color: grey;
+    
+    background-color: rgba(0,0,0,0.5) !important;
+
+    border-radius: 14px 14px 14px 14px;
+    -moz-border-radius: 14px 14px 14px 14px;
+    -webkit-border-radius: 14px 14px 14px 14px;
+    border: 0px solid #000000;
+}
+.sensore_bar{
+    overflow: auto;
+    height: 40vh;
+   
+}
+.sensore_bar::-webkit-scrollbar{
+    width: 10px;
+    background-color: #F5F5F5;
+}
+.sensore_bar::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  }
+  .sensore_bar::-webkit-scrollbar-thumb {
+    background: red; 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  .sensore_bar::-webkit-scrollbar-thumb:hover {
+    background: #b30000; 
+  }
+
+
 .titulo-Notificaciones{
     color: rgba(252,0,0,100);
     padding-top: 20px;

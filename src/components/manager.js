@@ -8,7 +8,7 @@ function Manager() {
     <div className="body-manager">    
         <Container>
             <Row>
-                <Col>
+                <Col xs lg={12}>
                     <h1>Manager</h1>
                 </Col>
             </Row>

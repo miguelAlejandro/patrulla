@@ -1,0 +1,222 @@
+{
+    "docs": [
+        {
+            "alertas": [
+                {
+                    "name": "Alerta 01",
+                    "serial": "String",
+                    "ubicacion": "String",
+                    "val": "12",
+                    "valMaximo": "2",
+                    "ValMinimo": "10",
+                    "hora": "12;12 PM",
+                    "fecha" : "20/01/2012"
+                },
+                {
+                    "name": "Alerta 02",
+                    "serial": "String",
+                    "ubicacion": "String",
+                    "val": "String",
+                    "valMaximo": "String",
+                    "ValMinimo": "String",
+                    "hora": "12;12 PM",
+                    "fecha" : "20/01/2012"
+                },
+                {
+                    "name": "Alerta 02",
+                    "serial": "String",
+                    "ubicacion": "String",
+                    "val": "String",
+                    "valMaximo": "String",
+                    "ValMinimo": "String",
+                    "hora": "12;12 PM",
+                    "fecha" : "20/01/2012"
+                },
+                {
+                    "name": "Alerta 02",
+                    "serial": "String",
+                    "ubicacion": "String",
+                    "val": "String",
+                    "valMaximo": "String",
+                    "ValMinimo": "String",
+                    "hora": "12;12 PM",
+                    "fecha" : "20/01/2012"
+                },
+                {
+                    "name": "Alerta 02",
+                    "serial": "String",
+                    "ubicacion": "String",
+                    "val": "String",
+                    "valMaximo": "String",
+                    "ValMinimo": "String",
+                    "hora": "12;12 PM",
+                    "fecha" : "20/01/2012"
+                },
+                {
+                    "name": "Alerta 02",
+                    "serial": "String",
+                    "ubicacion": "String",
+                    "val": "String",
+                    "valMaximo": "String",
+                    "ValMinimo": "String",
+                    "hora": "12;12 PM",
+                    "fecha" : "20/01/2012"
+                },
+                {
+                    "name": "Alerta 02",
+                    "serial": "String",
+                    "ubicacion": "String",
+                    "val": "String",
+                    "valMaximo": "String",
+                    "ValMinimo": "String",
+                    "hora": "12;12 PM",
+                    "fecha" : "20/01/2012"
+                },
+                {
+                    "name": "Alerta 02",
+                    "serial": "String",
+                    "ubicacion": "String",
+                    "val": "String",
+                    "valMaximo": "String",
+                    "ValMinimo": "String",
+                    "hora": "12;12 PM",
+                    "fecha" : "20/01/2012"
+                },
+                {
+                    "name": "Alerta 02",
+                    "serial": "String",
+                    "ubicacion": "String",
+                    "val": "String",
+                    "valMaximo": "String",
+                    "ValMinimo": "String",
+                    "hora": "12;12 PM",
+                    "fecha" : "20/01/2012"
+                },
+                {
+                    "name": "Alerta 02",
+                    "serial": "String",
+                    "ubicacion": "String",
+                    "val": "String",
+                    "valMaximo": "String",
+                    "ValMinimo": "String",
+                    "hora": "12;12 PM",
+                    "fecha" : "20/01/2012"
+                },
+                {
+                    "name": "Alerta 02",
+                    "serial": "String",
+                    "ubicacion": "String",
+                    "val": "String",
+                    "valMaximo": "String",
+                    "ValMinimo": "String",
+                    "hora": "12;12 PM",
+                    "fecha" : "20/01/2012"
+                },
+                {
+                    "name": "Alerta 02",
+                    "serial": "String",
+                    "ubicacion": "String",
+                    "val": "String",
+                    "valMaximo": "String",
+                    "ValMinimo": "String",
+                    "hora": "12;12 PM",
+                    "fecha" : "20/01/2012"
+                },
+                {
+                    "name": "Alerta 02",
+                    "serial": "String",
+                    "ubicacion": "String",
+                    "val": "String",
+                    "valMaximo": "String",
+                    "ValMinimo": "String",
+                    "hora": "12;12 PM",
+                    "fecha" : "20/01/2012"
+                },
+                {
+                    "name": "Alerta 02",
+                    "serial": "String",
+                    "ubicacion": "String",
+                    "val": "String",
+                    "valMaximo": "String",
+                    "ValMinimo": "String",
+                    "hora": "12;12 PM",
+                    "fecha" : "20/01/2012"
+                }
+            ],
+            "sensores": [
+                {
+                    "name": "Sensor 01",
+                    
+                    "ubicacion": "String",
+                    "val": "12",
+                    "valMaximo": "2",
+                    "ValMinimo": "10"
+
+                },
+                {
+                    "name": "Sensor 02",
+                    
+                    "ubicacion": "String",
+                    "val": "6",
+                    "valMaximo": "2",
+                    "ValMinimo": "10"
+                },
+                {
+                    "name": "Sensor 03",
+                    "email": "String",
+
+                    "ubicacion": "String",
+                    "val": "1",
+                    "valMaximo": "2",
+                    "ValMinimo": "10"
+                },
+                {
+                    "name": "Sensor 04",
+                    "email": "String",
+
+                    "ubicacion": "String",
+                    "val": "5",
+                    "valMaximo": "2",
+                    "ValMinimo": "10"
+                },
+                {
+                    "name": "Sensor 04",
+                    "email": "String",
+
+                    "ubicacion": "String",
+                    "val": "7",
+                    "valMaximo": "2",
+                    "ValMinimo": "10"
+                }
+            ],
+            "patrullas": [
+                {
+                    "name": "Sensor 04",
+                    "email": "String",
+
+                    "ubicacion": "String",
+                    "val": "7",
+                    "valMaximo": "2",
+                    "ValMinimo": "10"
+                },
+                {
+                    "name": "Sensor 04",
+                    "email": "String",
+
+                    "ubicacion": "String",
+                    "val": "7",
+                    "valMaximo": "2",
+                    "ValMinimo": "10"
+                }
+
+            ],
+            "user": {
+                "_id": "id",
+                "name": "name",
+                "email": "email",
+                "token": "token",
+                "image": null
+            }
+        }
+    ]
+}
