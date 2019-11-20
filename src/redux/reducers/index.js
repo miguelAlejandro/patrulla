@@ -1,16 +1,18 @@
 import {LOGIN_IN, LOGIN_OUT} from '../type'
 
 const initialState = {
-    articles: []
+    articles: [],
+    user: {}
   };
 
   function rootReducer(state = initialState, action) {
     if(action.type == LOGIN_IN){
       console.log(state)
-        return Object.user({}, state, {
-            articles: state.articles[0].user(action.payload)
+        return {
+          ...state,
+          user : action.payload
            
-        });
+        }
     }
     console.log(state)
     return state;

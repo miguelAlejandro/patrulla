@@ -65,13 +65,14 @@ function loginIn(e, dispatch) {
             email: e.target.elements.email.value,
             password: e.target.elements.Password.value,
         }
-        dispatch({type: "LOGIN_IN", payload: "datos"});
+        
         axios.post('http://localhost:3000/api/sign_in', { docs })
             .then(function (response) {
                 console.log(response);
                 if (response) {
                     alert(`Login In data { message: ${response.data.message} , token :${response.data.token} } `);
-                    window.location.href = "/mapas";
+                    dispatch({type: "LOGIN_IN", payload: {email: docs.email, token: response.data.token}});
+                    
                     
                 }
             })
