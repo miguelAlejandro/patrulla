@@ -8,3 +8,6 @@ export function loginOut(payload) {
     return { type: LOGIN_OUT, payload }
   };
 
+  export function counter(payload) {
+    return { type: "COUNTER", payload }
+  };

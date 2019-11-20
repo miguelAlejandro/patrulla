@@ -6,10 +6,13 @@ const initialState = {
 
   function rootReducer(state = initialState, action) {
     if(action.type == LOGIN_IN){
+      console.log(state)
         return Object.user({}, state, {
-            articles: state.articles.user(action.payload)
+            articles: state.articles[0].user(action.payload)
+           
         });
     }
+    console.log(state)
     return state;
   };
 

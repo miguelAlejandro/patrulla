@@ -2,8 +2,8 @@ import React from 'react';
 // import logo from './logo.svg';
 
 import { BrowserRouter, Route} from 'react-router-dom'
-// import { Provider } from 'react-redux';
-// import store from './redux/store';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 import './App.css';
 
 import Login from './components/login';
@@ -15,7 +15,7 @@ import { Nav } from 'react-bootstrap';
 
 function App() {
   return (
-    // <Provider store={store}>
+    <Provider store={store}>
       <BrowserRouter>
         <div>
           <Nav justify variant="tabs" bg="dark" defaultActiveKey="/Login">
@@ -35,7 +35,7 @@ function App() {
           <Route path="/manager" component={Manager} />
         </div>
       </BrowserRouter>
-    // </Provider>
+     </Provider>
   );
 }
 
