@@ -1,5 +1,5 @@
-import { React, useState, useEffect } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { connect } from 'react-redux';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/login.css';
@@ -87,12 +87,7 @@ function loginIn(e) {
 
 //Component Login
 function Login(props) {
-    // const [state, setState] = useState({
-    //     user: null,
-    //     email: null,
-    //     image: null,
-    //     token: null
-    // });
+  
 
     return (
         <div className="body-login">
@@ -101,20 +96,20 @@ function Login(props) {
                     <Col xs lg={6}>
                         <div className="Sign_in">
                             <h4>Sign in</h4>
-
+                            
                             <Form onSubmit={(e) => loginIn(e)}>
                                 <Form.Group controlId="email">
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control type="text" placeholder="@email" />
                                 </Form.Group>
                                 <br></br>
-
+                                
                                 <Form.Group controlId="Password">
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control type="password" placeholder="Password" />
                                 </Form.Group>
                                 <br></br>
-
+                                
                                 <Button variant="primary" type="submit" >
                                     Login
                             </Button>
@@ -122,7 +117,7 @@ function Login(props) {
                         </div>
                     </Col>
                     <br></br>
-                    <Col xs lg={6}>
+                    <Col  xs lg={6}>
                         <div className="Sign_up">
                             <h4>Sign up</h4>
                             <Form onSubmit={(e) => loginUp(e)}>
