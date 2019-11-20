@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/login.css';
@@ -92,8 +92,8 @@ function loginIn(e, dispatch) {
 }
 
 //Component Login
-function Login(props) {
-    const user = useSelector(state => state.articles.user);
+function Login({user}) {
+    console.log(user);
     const dispatch = useDispatch();
     return (
         <div className="body-login">
@@ -166,11 +166,9 @@ function Login(props) {
 
 const mapStateToProps = (state) => {
     return {
-        login: state.articles.user,
+        user: state.user,
     }
 }
+const mapDispatchToProps = (dispatch) => ({});
 
-const wrapper = connect(mapStateToProps);
-const component = wrapper(Login);
-
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
