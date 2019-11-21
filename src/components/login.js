@@ -1,12 +1,10 @@
 import React from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/login.css';
 import { Form, Button, Row, Col, Container } from 'react-bootstrap';
 import axios from 'axios';
-
-
 
 function isValidEmail(mail) {
     return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/.test(mail);
@@ -14,7 +12,6 @@ function isValidEmail(mail) {
 
 function loginUp(e) {
     e.preventDefault();
-    console.log('Login Up');
     var validar = true;
     if (e.target.elements.PasswordUp1.value !== e.target.elements.PasswordUp2.value) {
         alert("Error en el password");
@@ -37,15 +34,11 @@ function loginUp(e) {
 
         axios.post('http://localhost:3000/api/sign_up', { docs })
             .then(function (response) {
-                console.log(response.data);
                 if (response) {
                     alert("Login Up");
-                    
-                    
                 }
             })
             .catch(function (error) {
-                console.log(error);
                 if (error) {
                     alert(`Login Up Error: ${error}`);
                 }
@@ -57,29 +50,28 @@ function loginUp(e) {
 
 }
 
-function loginIn(e, dispatch) {
+function loginIn(e, outUser, inUser) {
     e.preventDefault();
-    console.log('Login In');
     if (isValidEmail(e.target.elements.email.value)) {
         const docs = {
             email: e.target.elements.email.value,
             password: e.target.elements.Password.value,
         }
-        
         axios.post('http://localhost:3000/api/sign_in', { docs })
             .then(function (response) {
-                console.log(response);
                 if (response) {
                     alert(`Login In data { message: ${response.data.message} , token :${response.data.token} } `);
-                    dispatch({type: "LOGIN_IN", payload: {email: docs.email, token: response.data.token}});
-                    
-                    
+                    if (response.data.token) { 
+                        inUser({ email: docs.email, token: response.data.token });
+                    } else { 
+                        outUser();
+                    }
                 }
             })
             .catch(function (error) {
-                console.log(error);
                 if (error) {
                     alert(`Login In Error: ${error}`);
+                    outUser();
                 }
             })
             .then(function () {
@@ -88,22 +80,22 @@ function loginIn(e, dispatch) {
     } else {
         alert("Email no valido");
     }
-
 }
 
 //Component Login
-function Login({user}) {
-    console.log(user);
-    const dispatch = useDispatch();
+function Login({state, outUser, inUser }) {
+    console.log(state);
     return (
         <div className="body-login">
             <Container>
                 <Row>
+                <Col xs lg={12}>
+                <h1>The user is <b>{state.email ? 'currently' : 'not'}</b> logged in.</h1>
+                </Col>
                     <Col xs lg={6}>
                         <div className="Sign_in">
                             <h4>Sign in </h4>
-
-                            <Form onSubmit={(e) => loginIn(e, dispatch)}>
+                            <Form onSubmit={(e) => loginIn(e, outUser, inUser)}>
                                 <Form.Group controlId="email">
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control type="text" placeholder="@email" />
@@ -164,11 +156,23 @@ function Login({user}) {
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        user: state.user,
+const mapStateToProps = state => ({
+    state: state, 
+})
+
+const mapDispatchToProps = dispatch => ({
+    outUser() {
+        dispatch({
+            type: "LOGIN_OUT",
+            payload: null
+        })
+    },
+    inUser(user) {
+        dispatch({
+            type: "LOGIN_IN",
+            payload: user
+        })
     }
-}
-const mapDispatchToProps = (dispatch) => ({});
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
