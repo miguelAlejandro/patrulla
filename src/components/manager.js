@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/manager.css';
-import { Row, Col, Container, Image, Button } from 'react-bootstrap';
+import { Row, Col, Container, Image, Button, Form } from 'react-bootstrap';
 
 import { connect } from 'react-redux';
 
@@ -89,21 +89,94 @@ function ManagerAuthOn({ state }) {
 
                     <div className='body-opcion'>
                         <Col xs lg={8}>
-                            <div className="Admin" id="Admin">
-                                <h1>Admin</h1>
-                            </div>
-                            <div className="Alertas" id="Alertas">
-                                <h1>Alertas</h1>
-                            </div>
-                            <div className="Sensores" id="Sensores">
-                                <h1>Sensor</h1>
-                            </div>
-                            <div className="Patrullas" id="Patrullas">
-                                <h1>Patrulla</h1>
-                            </div>
-                            <div className="xxxxx">
-                                <h1>xxxxx</h1>
-                            </div>
+                            <Col xs lg={12}>
+                                <div className="Admin" id="Admin">
+                                    <h1>Admin</h1>
+                                </div>
+                            </Col>
+                            <Col xs lg={12}>
+                                <div className="Alertas" id="Alertas">
+                                    <h1>Alertas</h1>
+
+                                </div>
+                            </Col>
+                            <Col xs lg={12}>
+                                <div className="Sensores " id="Sensores">
+                                    <h1>Sensor</h1>
+                                    <Form>
+                                        <Form.Group controlId="formBasicName">
+                                            <Form.Label>Nombre</Form.Label>
+                                            <Form.Control type="text" placeholder="sensor" />
+                                            <Form.Text className="text-muted">
+                                                nombre del sensor a registras.
+                                         </Form.Text>
+                                        </Form.Group>
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>Email</Form.Label>
+                                            <Form.Control type="text" placeholder="@ " />
+                                            <Form.Text className="text-muted">
+                                                Email de dueño del sensor.
+                                         </Form.Text>
+                                        </Form.Group>
+                                        <Form.Group controlId="formBasicSerial">
+                                            <Form.Label>Serial</Form.Label>
+                                            <Form.Control type="test" placeholder="xxx-xxxx" />
+                                        </Form.Group>
+                                        <Form.Group controlId="formBasicUbicacion">
+                                            <Form.Label>Ubicacion</Form.Label>
+                                            <Form.Control type="test" placeholder="" />
+                                        </Form.Group>
+                                        <Form.Group controlId="formBasicValMaximo">
+                                            <Form.Label>Valor maximo</Form.Label>
+                                            <Form.Control type="test" placeholder="100 %" />
+                                        </Form.Group>
+                                        <Form.Group controlId="formBasicValMinimo">
+                                            <Form.Label>Valor minimo</Form.Label>
+                                            <Form.Control type="test" placeholder="0 %" />
+                                        </Form.Group>
+                                        <Button variant="primary" type="submit">
+                                            Registras
+                                    </Button>
+                                    </Form>
+                                </div>
+                            </Col>
+                            <Col xs lg={12}>
+                                <div className="Patrullas" id="Patrullas">
+                                    <h1>Patrulla</h1>
+                                    <Form>
+                                        <Form.Group controlId="formBasicName">
+                                            <Form.Label>Nombre</Form.Label>
+                                            <Form.Control type="text" placeholder="patrulla" />
+                                            <Form.Text className="text-muted">
+                                                nombre del patrulla a registras.
+                                         </Form.Text>
+                                        </Form.Group>
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>Email</Form.Label>
+                                            <Form.Control type="text" placeholder="@ " />
+                                            <Form.Text className="text-muted">
+                                                Email de dueño de la patrulla.
+                                         </Form.Text>
+                                        </Form.Group>
+                                        <Form.Group controlId="formBasicUbicacion">
+                                            <Form.Label>Ubicacion</Form.Label>
+                                            <Form.Control type="test" placeholder="" />
+                                        </Form.Group>
+                                       
+                                        <Button variant="primary" type="submit">
+                                            Registras
+                                    </Button>
+                                    </Form>
+                                </div></Col>
+                            <Col xs lg={12}>
+                                <div className="xxxxx">
+                                    <h1>xxxxx</h1>
+                                </div>
+                            </Col>
+
+
+
+
 
                         </Col>
                     </div>

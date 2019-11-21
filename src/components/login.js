@@ -28,7 +28,8 @@ function loginUp(e) {
             name: e.target.elements.user.value,
             email: e.target.elements.emailUp.value,
             password: e.target.elements.PasswordUp1.value,
-            rol: e.target.elements.type.value,
+            role: e.target.elements.role.value,
+            activar: null,
             image: null,
         }
 
@@ -60,10 +61,11 @@ function loginIn(e, outUser, inUser) {
         axios.post('http://localhost:3000/api/sign_in', { docs })
             .then(function (response) {
                 if (response) {
-                    alert(`Login In data { message: ${response.data.message} , token :${response.data.token} } `);
                     if (response.data.token) { 
-                        inUser({ email: docs.email, token: response.data.token });
+                        alert(`Login In data { message: ${response.data.message} , token :${response.data.token} } `);
+                        inUser({ email: docs.email, token: response.data.token,  name: response.data.name, image: response.data.image});
                     } else { 
+                        alert(`Error email and password login out`);
                         outUser();
                     }
                 }
@@ -135,7 +137,7 @@ function Login({state, outUser, inUser }) {
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control type="password" placeholder="Password" />
                                 </Form.Group>
-                                <Form.Group controlId="type">
+                                <Form.Group controlId="role">
                                     <Form.Label>Type</Form.Label>
                                     <Form.Control as="select">
                                         <option>Usuario</option>

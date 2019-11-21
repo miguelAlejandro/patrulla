@@ -14,7 +14,9 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         token: action.payload.token,
-        email: action.payload.email
+        email: action.payload.email,
+        name:  action.payload.name,
+        image: action.payload.image
 
       };
     case LOGIN_OUT:
@@ -22,7 +24,9 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         token: null,
-        email: null
+        email: null,
+        name:  null,
+        image: null
 
       };
 
