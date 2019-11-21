@@ -1,0 +1,48 @@
+.body-manager{
+    padding-top: 15px;
+}
+.body-menu{
+    color: white;
+    
+    background-color: rgba(0,0,0,0.6) !important;
+
+    border-radius: 14px 14px 14px 14px;
+    -moz-border-radius: 14px 14px 14px 14px;
+    -webkit-border-radius: 14px 14px 14px 14px;
+    border: 0px solid #000000;
+
+    
+    height: 80vh;
+    width: 25vw;
+    float: left;
+
+   
+}
+.body-opcion{
+    color: white;
+    
+    background-color: rgba(0,0,0,0.7) !important;
+
+    border-radius: 14px 14px 14px 14px;
+    -moz-border-radius: 14px 14px 14px 14px;
+    -webkit-border-radius: 14px 14px 14px 14px;
+    border: 0px solid #000000;
+
+    height: 80vh;
+    width: 70vw;
+    float: right;
+}   
+.img{
+    align-content: center;
+}
+#Alertas{
+    display: none;
+}
+#Sensor{
+    display: none;
+}
+
+#Patrulla{
+    display: none;
+}
+

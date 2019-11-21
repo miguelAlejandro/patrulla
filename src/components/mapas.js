@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './css/mapas.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button, Container } from 'react-bootstrap';
 import SimpleMap from './google_map';
 
 import data from '../data';
@@ -21,7 +21,22 @@ function enviar(id) {
     eliminar.style.display = 'none';
   }
 }
-function Mapas({state}) {
+function MapasAuthOff() {
+  return (<div>
+      <div className="body-manager">
+          <Container>
+              <Row>
+                  <Col xs lg={12}>
+                  <h1>Necesita inicial seccion</h1>
+                  </Col>
+              </Row>
+          </Container>
+
+      </div>
+      
+  </div>);
+}
+function MapasAuthOn({state}) {
   const alertas = data.docs[0].alertas;
   const sensores = data.docs[0].sensores;
   // const patrullas = data.docs[0].patrullas;
@@ -151,6 +166,12 @@ function Mapas({state}) {
       </Row>
     </div>
   );
+}
+function Mapas({state}){
+  if(state.email && state.token){
+    return < MapasAuthOn />
+  }
+  return < MapasAuthOff />
 }
 
 const mapStateToProps = state => ({

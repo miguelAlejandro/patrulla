@@ -9,12 +9,14 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav } from 'react-bootstrap';
 
+import { Provider } from 'react-redux';
+import store from './redux/store';
 function App() {
   return (
-   
+    <Provider store={store}>
       <BrowserRouter>
         <div>
-          <Nav justify variant="tabs" bg="dark" defaultActiveKey="/Login">
+          <Nav justify variant="tabs" bg="dark" defaultActiveKey="/">
             <Nav.Item>
               <Nav.Link ><Link to="/login"><h4>Login</h4></Link></Nav.Link>
             </Nav.Item>
@@ -31,7 +33,7 @@ function App() {
           <Route path="/manager" component={Manager} />
         </div>
       </BrowserRouter>
-     
+      </Provider>
   );
 }
 

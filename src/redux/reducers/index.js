@@ -1,8 +1,8 @@
 import { LOGIN_IN, LOGIN_OUT } from '../type'
 
 const initialState = {
-  email: null,
-  token: null,
+  email: 'admin',
+  token: 'admin',
   patrullas: [{}],
   sensores: [{}]
 };
