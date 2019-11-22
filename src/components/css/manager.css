@@ -4,15 +4,12 @@
 .body-menu{
     color: white;
     
-    background-color: rgba(0,0,0,0.6) !important;
-
-    border-radius: 14px 14px 14px 14px;
-    -moz-border-radius: 14px 14px 14px 14px;
-    -webkit-border-radius: 14px 14px 14px 14px;
-    border: 0px solid #000000;
+    background-color: rgba(0,0,0,0.5) !important;
 
     
-    height: 80vh;
+
+    
+    height: 90vh;
     width: 25vw;
     float: left;
 
@@ -21,28 +18,48 @@
 .body-opcion{
     color: white;
     
-    background-color: rgba(0,0,0,0.7) !important;
+    background-color: rgba(0,0,0,0.9) !important;
 
-    border-radius: 14px 14px 14px 14px;
-    -moz-border-radius: 14px 14px 14px 14px;
-    -webkit-border-radius: 14px 14px 14px 14px;
-    border: 0px solid #000000;
 
-    height: 80vh;
+
+    height: 90vh;
     width: 70vw;
     float: right;
 }   
 .img{
     align-content: center;
 }
-#Alertas{
+
+
+#VerAlertas{
     display: none;
 }
-#Sensores{
+#VerSensores{
     display: none;
 }
 
-#Patrullas{
+#VerPatrullas{
     display: none;
 }
 
+#RegistrarAlertas{
+    display: none;
+}
+#RegistrarSensores{
+    display: none;
+}
+
+#RegistrarPatrullas{
+    display: none;
+}
+
+#MiCuenta{
+    
+}
+#Usuarios{
+    display: none;
+}
+
+#Otros{
+    display: none;
+}
