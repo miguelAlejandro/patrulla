@@ -27,7 +27,7 @@ function MapasAuthOff() {
           <Container>
               <Row>
                   <Col xs lg={12}>
-                  <h1>Necesita inicial seccion</h1>
+                  <h1>Necesita iniciar seccion</h1>
                   </Col>
               </Row>
           </Container>

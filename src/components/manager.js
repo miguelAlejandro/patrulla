@@ -465,7 +465,7 @@ function ManagerAuthOn({ state, outUser }) {
                                     <h6>Email: {state.email}</h6>
                                     <h6>Rol: {state.role}</h6>
                                 </div>
-                                <Button variant="danger" onClick={outUser}>Login out</Button>
+                                <Button variant="danger" onClick={() => outUser()}>Login out</Button>
                             </div>
                         </Col>
                         <Col xs lg={12}>
@@ -512,10 +512,10 @@ function ManagerAuthOn({ state, outUser }) {
     );
 }
 
-function Manager({ state }) {
+function Manager({ state, outUser }) {
     console.log(state);
     if (state.email && state.token) {
-        return <ManagerAuthOn state={state} />
+        return <ManagerAuthOn state={state} outUser={outUser} />
     }
 
     return <ManagerAuthOff />
