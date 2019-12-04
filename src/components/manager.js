@@ -2,8 +2,70 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/manager.css';
 import { Row, Col, Container, Image, Button, Form } from 'react-bootstrap';
+import axios from 'axios';
 
 import { connect } from 'react-redux';
+
+const { useState, useEffect } = React;
+
+function alertaPost(e) {
+    e.preventDefault();
+    const docs = {
+        nombre: e.target.elements.nombre.value,
+        email: e.target.elements.email.value,
+        emailDestino: e.target.elements.emailDestino.value,
+        ubicacion: e.target.elements.ubicacion.value,
+        informacion: e.target.elements.informacion.value,
+        serial: e.target.elements.serial.value,
+    }
+
+    if (docs.nombre && docs.email && docs.emailDestino && docs.ubicacion && docs.informacion && docs.serial) {
+        console.log(docs)
+        axios.post("http://localhost:3000/api/create_alertas", docs).then(function (res) {
+            alert(res.data.message);
+        }).catch(function (err) {
+            alert("su alerta no pudo enviarse revise su coneccion de internet")
+        })
+    }
+}
+function sensorPost(e) {
+    e.preventDefault();
+    const docs = {
+        nombre: e.target.elements.nombre.value,
+        email: e.target.elements.email.value,
+        serial: e.target.elements.serial.value,
+        ubicacion: e.target.elements.ubicacion.value,
+        valMaximo: e.target.elements.valMaximo.value,
+        ValMinimo: e.target.elements.ValMinimo.value,
+    }
+
+    if (docs.nombre && docs.email && docs.valMaximo && docs.ubicacion && docs.ValMinimo && docs.serial) {
+        console.log(docs)
+        axios.post("http://localhost:3000/api/create_sensores", docs).then(function (res) {
+            alert(res.data.message)
+        }).catch(function (err) {
+            alert("su alerta no pudo enviarse revise su coneccion de internet")
+        })
+    }
+}
+
+function patrullaPost(e) {
+    e.preventDefault();
+    const docs = {
+        nombre: e.target.elements.nombre.value,
+        email: e.target.elements.email.value,
+        serial: e.target.elements.serial.value
+    }
+
+    if (docs.nombre && docs.email && docs.serial) {
+        console.log(docs)
+        axios.post("http://localhost:3000/api/create_sensores", docs).then(function (res) {
+            alert(res.data.message)
+        }).catch(function (err) {
+            alert("su alerta no pudo enviarse revise su coneccion de internet")
+        })
+    }
+}
 
 function ManagerAuthOff() {
     return (<div>
@@ -21,17 +83,44 @@ function ManagerAuthOff() {
     </div>);
 }
 function VerAlertas() {
+    var ver;
+    const [count, setCount] = useState([]);
+    useEffect(() => {
+        // Actualiza el título del documento usando la API del navegador
+        const fetchData = async () => {
+            const result = await axios.get('http://localhost:3000/api/read_alertas');
+            setCount(result.data.alertas);
+            ver = result.data.alertas
+            console.log(ver)
+     
+            ver = Object.keys(ver).map((alerta)=> <h1>{ver[alerta].nombre})</h1>)
+   
+
+
+        };
+        fetchData();
+
+    }, []);
+
     return (
         <div className="VerAlertas" id="VerAlertas">
             <Row>
                 <Col xs lg={12}>
                     <div>
                         <h1>Ver Alertas</h1>
+                        <ul>
+                            {ver}
+                        </ul>
                     </div>
                 </Col>
             </Row>
         </div>
+
     )
+
+
+
+
 }
 function VerSensores() {
     return (
@@ -63,74 +152,67 @@ function VerPatrullas() {
 function RegistrarAlertas() {
     return (
         <div className="RegistrarAlertas" id="RegistrarAlertas">
-
             <Row >
-                <Col xs lg={12}>
-                    <div >
-                        <br></br>
-                        <h1>Registrar Alertas</h1>
-                        <hr></hr>
+                <Col xs lg={10}>
+                    <Form onSubmit={(e) => alertaPost(e)}>
 
-                    </div>
-                </Col>
+                        <div >
+                            <br></br>
+                            <h1>Registrar Alertas</h1>
+                            <hr></hr>
+                        </div>
 
-                <Col xs lg={6}>
-                    <div>
-                        <Form.Group controlId="formBasicNamePatrulla">
+                        <Form.Group controlId="nombre">
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control type="text" placeholder="alerta" />
                             <Form.Text className="text-muted">
                                 nombre de la alerta a registras.
                         </Form.Text>
                         </Form.Group>
-                        <Form.Group controlId="formBasicEmail">
+
+                        <Form.Group controlId="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="text" placeholder="@ " />
                             <Form.Text className="text-muted">
-                                Email ha enviar la alerta.
+                                Email.
+                        </Form.Text>
+                        </Form.Group>
+                        <Form.Group controlId="emailDestino">
+                            <Form.Label>Email Destino</Form.Label>
+                            <Form.Control type="text" placeholder="@ " />
+                            <Form.Text className="text-muted">
+                                Email destino.
                         </Form.Text>
                         </Form.Group>
 
-
-                    </div>
-                </Col>
-                <Col xs lg={5}>
-                    <div >
-                        <Form.Group controlId="formBasicUbicacion">
+                        <Form.Group controlId="ubicacion">
                             <Form.Label>Ubicacion</Form.Label>
                             <Form.Control type="text" placeholder="" />
                             <Form.Text className="text-muted">
                                 Google Map Ubicacion.
                         </Form.Text>
                         </Form.Group>
-                        <Form.Group controlId="formBasicSerial">
+                        <Form.Group controlId="serial">
                             <Form.Label>Serial</Form.Label>
                             <Form.Control type="text" placeholder="xxx-xxxx" />
                             <Form.Text className="text-muted">
                                 Los seriales son unicos.
                         </Form.Text>
                         </Form.Group>
-                    </div>
-                </Col>
-                <Col xs lg={11}>
-                    <div>
-                        <Form.Group controlId="formBasicSerial">
+
+                        <Form.Group controlId="informacion">
                             <Form.Label>Informacion</Form.Label>
                             <Form.Control as="textarea" rows="3" />
                             <Form.Text className="text-muted">
                                 Informacion de lo ocurido.
                         </Form.Text>
                         </Form.Group>
-                    </div>
 
-                </Col>
-                <Col xs lg={12}>
-                    <div>
-                        <Button variant="primary">
+                        <Button variant="primary" type="submit">
                             Registrar
                         </Button>
-                    </div>
 
+                    </Form>
                 </Col>
             </Row>
         </div>
@@ -141,74 +223,67 @@ function RegistrarSensores() {
         <div className="RegistrarSensores" id="RegistrarSensores">
 
             <Row >
-                <Col xs lg={12}>
-                    <div >
-                        <br></br>
-                        <h1>Registrar Sensores</h1>
-                        <hr></hr>
+                <Col xs lg={10}>
+                    <Form onSubmit={(e) => sensorPost(e)}>
 
-                    </div>
-                </Col>
+                        <div >
+                            <br></br>
+                            <h1>Registrar Alertas</h1>
+                            <hr></hr>
+                        </div>
 
-                <Col xs lg={5}>
-                    <div>
-                        <Form.Group controlId="formBasicName">
+                        <Form.Group controlId="nombre">
                             <Form.Label>Nombre</Form.Label>
-                            <Form.Control type="text" placeholder="sensor" />
+                            <Form.Control type="text" placeholder="Sensor" />
                             <Form.Text className="text-muted">
-                                nombre del sensor a registras.
-                            </Form.Text>
+                                nombre de la sensor a registras.
+                        </Form.Text>
                         </Form.Group>
-                        <Form.Group controlId="formBasicEmail">
+                        <Form.Group controlId="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="text" placeholder="@ " />
                             <Form.Text className="text-muted">
-                                Email de dueño del sensor.
-                            </Form.Text>
-                        </Form.Group>
-                        <Form.Group controlId="formBasicSerial">
-                            <Form.Label>Serial</Form.Label>
-                            <Form.Control type="test" placeholder="xxx-xxxx" />
-                            <Form.Text className="text-muted">
-                                Los seriales son unicos.
-                            </Form.Text>
+                                Email.
+                        </Form.Text>
                         </Form.Group>
 
-                    </div>
-                </Col>
-                <Col xs lg={5}>
-                    <div >
-                        <Form.Group controlId="formBasicUbicacion">
+                        <Form.Group controlId="ubicacion">
                             <Form.Label>Ubicacion</Form.Label>
-                            <Form.Control type="test" placeholder="" />
+                            <Form.Control type="text" placeholder="" />
                             <Form.Text className="text-muted">
                                 Google Map Ubicacion.
-                            </Form.Text>
+                        </Form.Text>
                         </Form.Group>
-                        <Form.Group controlId="formBasicValMaximo">
-                            <Form.Label>Valor maximo</Form.Label>
-                            <Form.Control type="test" placeholder="100 %" />
+                        <Form.Group controlId="serial">
+                            <Form.Label>Serial</Form.Label>
+                            <Form.Control type="text" placeholder="xxx-xxxx" />
                             <Form.Text className="text-muted">
-                                Solo numero.
-                            </Form.Text>
+                                Los seriales son unicos.
+                        </Form.Text>
                         </Form.Group>
-                        <Form.Group controlId="formBasicValMinimo">
-                            <Form.Label>Valor minimo</Form.Label>
-                            <Form.Control type="test" placeholder="0 %" />
+                        <Form.Group controlId="valMaximo">
+                            <Form.Label>Maximo</Form.Label>
+                            <Form.Control type="text" placeholder="%" />
                             <Form.Text className="text-muted">
-                                Solo numero.
-                            </Form.Text>
+                                Valor maximo.
+                        </Form.Text>
                         </Form.Group>
-                    </div>
-                </Col>
-                <Col xs lg={12}>
-                    <div>
-                        <Button variant="primary">
-                            Registrar
-                            </Button>
-                    </div>
+                        <Form.Group controlId="ValMinimo">
+                            <Form.Label>Minimo</Form.Label>
+                            <Form.Control type="text" placeholder="%" />
+                            <Form.Text className="text-muted">
+                                Valor minimo
+                        </Form.Text>
+                        </Form.Group>
 
+
+                        <Button variant="primary" type="submit">
+                            Registrar
+                    </Button>
+
+                    </Form>
                 </Col>
+
             </Row>
         </div>
 
@@ -218,63 +293,46 @@ function RegistrarSensores() {
 function RegistrarPatrullas() {
     return (
         <div className="RegistrarPatrullas" id="RegistrarPatrullas">
-
-
             <Row >
-                <Col xs lg={12}>
+
+                <Col xs lg={10}>
                     <div >
                         <br></br>
                         <h1>Registrar Patrullas</h1>
                         <hr></hr>
-
                     </div>
-                </Col>
+                    <Form onSubmit={(e) => patrullaPost(e)}>
 
-                <Col xs lg={5}>
-                    <div>
-                        <Form.Group controlId="formBasicNamePatrulla">
+                        <Form.Group controlId="nombre">
                             <Form.Label>Nombre</Form.Label>
-                            <Form.Control type="text" placeholder="patrulla" />
+                            <Form.Control type="text" placeholder="Patrulla" />
                             <Form.Text className="text-muted">
-                                nombre de la patrulla a registras.
+                                nombre de la sensor a registras.
                         </Form.Text>
                         </Form.Group>
-                        <Form.Group controlId="formBasicEmail">
+
+                        <Form.Group controlId="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="text" placeholder="@ " />
                             <Form.Text className="text-muted">
-                                Email de dueño de la patrulla.
+                                Email.
                         </Form.Text>
                         </Form.Group>
 
 
-                    </div>
-                </Col>
-                <Col xs lg={5}>
-                    <div >
-                        <Form.Group controlId="formBasicUbicacion">
-                            <Form.Label>Ubicacion</Form.Label>
-                            <Form.Control type="test" placeholder="" />
-                            <Form.Text className="text-muted">
-                                Google Map Ubicacion.
-                        </Form.Text>
-                        </Form.Group>
-                        <Form.Group controlId="formBasicSerial">
+                        <Form.Group controlId="serial">
                             <Form.Label>Serial</Form.Label>
-                            <Form.Control type="test" placeholder="xxx-xxxx" />
+                            <Form.Control type="text" placeholder="xxx-xxxx" />
                             <Form.Text className="text-muted">
                                 Los seriales son unicos.
                         </Form.Text>
                         </Form.Group>
-                    </div>
-                </Col>
-                <Col xs lg={12}>
-                    <div>
-                        <Button variant="primary">
-                            Registras
-                        </Button>
-                    </div>
 
+                        <Button variant="primary" type="submit">
+                            Registrar
+                        </Button>
+
+                    </Form>
                 </Col>
             </Row>
         </div>
@@ -368,7 +426,7 @@ function nemuVerPatrullas() {
 }
 
 function menuRegistrarAlertas() {
-    
+
     document.getElementById("VerAlertas").style.display = 'none';
     document.getElementById("VerSensores").style.display = 'none';
     document.getElementById('VerPatrullas').style.display = 'none';
@@ -410,7 +468,7 @@ function menuRegistrarPatrullas() {
 
 }
 
-function menuMiCuenta(){
+function menuMiCuenta() {
     document.getElementById("VerAlertas").style.display = 'none';
     document.getElementById("VerSensores").style.display = 'none';
     document.getElementById('VerPatrullas').style.display = 'none';
@@ -424,7 +482,7 @@ function menuMiCuenta(){
     document.getElementById('Otros').style.display = 'none';
 }
 
-function menuUsuarios(){
+function menuUsuarios() {
     document.getElementById("VerAlertas").style.display = 'none';
     document.getElementById("VerSensores").style.display = 'none';
     document.getElementById('VerPatrullas').style.display = 'none';
@@ -437,7 +495,7 @@ function menuUsuarios(){
     document.getElementById("Usuarios").style.display = 'inline';
     document.getElementById('Otros').style.display = 'none';
 }
-function menuOtros(){
+function menuOtros() {
     document.getElementById("VerAlertas").style.display = 'none';
     document.getElementById("VerSensores").style.display = 'none';
     document.getElementById('VerPatrullas').style.display = 'none';
