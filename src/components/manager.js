@@ -59,10 +59,10 @@ function patrullaPost(e) {
 
     if (docs.nombre && docs.email && docs.serial) {
         console.log(docs)
-        axios.post("http://localhost:3000/api/create_sensores", docs).then(function (res) {
+        axios.post("http://localhost:3000/api/create_patrullas", docs).then(function (res) {
             alert(res.data.message)
         }).catch(function (err) {
-            alert("su alerta no pudo enviarse revise su coneccion de internet")
+            alert("su patrulla no pudo enviarse revise su coneccion de internet")
         })
     }
 }
