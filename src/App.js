@@ -11,27 +11,28 @@ import { Nav } from 'react-bootstrap';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
+
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <div>
-          <Nav justify variant="tabs" bg="dark" defaultActiveKey="/">
+       
+          <Nav justify variant="tabs" bg="dark">
             <Nav.Item>
-              <Nav.Link ><Link to="/login"><h4>Login</h4></Link></Nav.Link>
+              <Link to="/login"><h4>Login</h4></Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="link-1"><Link to="/mapas"><h4>Mapas</h4></Link></Nav.Link>
+             <Link to="/mapas"><h4>Mapas</h4></Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="link-2"><Link to="/manager"><h4>Manager</h4></Link></Nav.Link>
+            <Link to="/manager"><h4>Manager</h4></Link>
             </Nav.Item>
           </Nav>
 
           <Route path="/login" component={Login} />
           <Route path="/mapas" component={Mapas} />
           <Route path="/manager" component={Manager} />
-        </div>
+        
       </BrowserRouter>
       </Provider>
   );

@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/manager.css';
 import { Row, Col, Container, Image, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
-
+import useAxios from 'axios-hooks'
 import { connect } from 'react-redux';
 
-const { useState, useEffect } = React;
+
 
 function alertaPost(e) {
     e.preventDefault();
@@ -83,24 +83,12 @@ function ManagerAuthOff() {
     </div>);
 }
 function VerAlertas() {
-    var ver;
-    const [count, setCount] = useState([]);
-    useEffect(() => {
-        // Actualiza el título del documento usando la API del navegador
-        const fetchData = async () => {
-            const result = await axios.get('http://localhost:3000/api/read_alertas');
-            setCount(result.data.alertas);
-            ver = result.data.alertas
-            console.log(ver)
-     
-            ver = Object.keys(ver).map((alerta)=> <h1>{ver[alerta].nombre})</h1>)
-   
+    const [{ data, loading, error }, refetch] = useAxios(
+        'http://localhost:3000/api/read_alertas'
+    )
 
-
-        };
-        fetchData();
-
-    }, []);
+    if (loading) return <p>Loading...</p>
+    if (error) return <p>Error!</p>
 
     return (
         <div className="VerAlertas" id="VerAlertas">
@@ -108,9 +96,47 @@ function VerAlertas() {
                 <Col xs lg={12}>
                     <div>
                         <h1>Ver Alertas</h1>
-                        <ul>
-                            {ver}
-                        </ul>
+
+                        <div className="ver_alertas">
+                            {data.alertas.map((alerta =>
+                                <div className="ve_alerta">
+                                    <Row>
+                                        <Col xs lg={12}>
+                                            <Row>
+                                                <Col xs lg={8}>
+                                                <h2>{alerta.nombre}</h2>
+                                                </Col>
+
+                                                <Col xs lg={4}>
+                                                    <Button>X</Button>
+                                                </Col>
+                                            
+                                            </Row>
+                                            
+                                            <hr></hr>
+                                        </Col>
+                                        <Col xs lg={6}>
+
+                                            <h6>Email : {alerta.email}</h6>
+                                            <h6>Email destino : {alerta.emailDestino}</h6>
+
+                                        </Col>
+                                        <Col xs lg={6}>
+                                            <h6>Ubicacion : {alerta.ubicacion}</h6>
+                                            <h6>Serial : {alerta.serial}</h6>
+
+                                        </Col>
+                                        <Col xs lg={12}>
+                                            <h4>Informacion</h4>
+                                            <p>{alerta.informacion}</p>
+                                        </Col>
+                                    </Row>
+
+
+
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </Col>
             </Row>
@@ -118,34 +144,127 @@ function VerAlertas() {
 
     )
 
-
-
-
 }
 function VerSensores() {
+    const [{ data, loading, error }, refetch] = useAxios(
+        'http://localhost:3000/api/read_sensores'
+    )
+
+    if (loading) return <p>Loading...</p>
+    if (error) return <p>Error!</p>
+
     return (
         <div className="VerSensores" id="VerSensores">
             <Row>
                 <Col xs lg={12}>
                     <div>
                         <h1>Ver Sensores</h1>
+
+                        <div className="ver_sensores">
+                            {data.sensores.map((sensor =>
+                                <div className="ve_sensor">
+                                    <Row>
+                                        <Col xs lg={12}>
+                                            <Row>
+                                                <Col xs lg={8}>
+                                                <h2>{sensor.nombre}</h2>
+                                                </Col>
+
+                                                <Col xs lg={4}>
+                                                    <Button>X</Button>
+                                                </Col>
+                                            
+                                            </Row>
+                                            
+                                            <hr></hr>
+                                        </Col>
+                                        <Col xs lg={6}>
+
+                                            <h6>Email : {sensor.email}</h6>
+                                            <h6>Ubicacion : {sensor.ubicacion}</h6>
+                                            <h6>Serial : {sensor.serial}</h6>
+
+                                        </Col>
+                                        <Col xs lg={6}>
+                                        <h6>Valor maximo : {sensor.valMaximo}</h6>
+                                        <h6>Valor minimo : {sensor.ValMinimo}</h6>
+                                        </Col>
+                                        
+                                    </Row>
+
+
+
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </Col>
             </Row>
         </div>
+
     )
+
+    
+
 }
 function VerPatrullas() {
+
+    const [{ data, loading, error }, refetch] = useAxios(
+        'http://localhost:3000/api/read_patrullas'
+    )
+
+    if (loading) return <p>Loading...</p>
+    if (error) return <p>Error!</p>
+
     return (
         <div className="VerPatrullas" id="VerPatrullas">
             <Row>
                 <Col xs lg={12}>
                     <div>
                         <h1>Ver Patrullas</h1>
+
+                        <div className="ver_patrullas">
+                            {data.patrullas.map((patrulla =>
+                                <div className="ve_patrulla">
+                                    <Row>
+                                        <Col xs lg={12}>
+                                            <Row>
+                                                <Col xs lg={8}>
+                                                <h2>{patrulla.nombre}</h2>
+                                                </Col>
+
+                                                <Col xs lg={4}>
+                                                    <Button>X</Button>
+                                                </Col>
+                                            
+                                            </Row>
+                                            
+                                            <hr></hr>
+                                        </Col>
+                                        <Col xs lg={6}>
+
+                                            <h6>Email : {patrulla.email}</h6>
+                                            <h6>Ubicacion : {patrulla.ubicacion}</h6>
+                                            <h6>Serial : {patrulla.serial}</h6>
+
+                                        </Col>
+                                        <Col xs lg={6}>
+                                        <h6>Valor maximo : {patrulla.valMaximo}</h6>
+                                        <h6>Valor minimo : {patrulla.ValMinimo}</h6>
+                                        </Col>
+                                        
+                                    </Row>
+
+
+
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </Col>
             </Row>
         </div>
+
     )
 }
 
@@ -592,5 +711,6 @@ const mapDispatchToProps = dispatch => ({
     }
 
 });
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Manager);

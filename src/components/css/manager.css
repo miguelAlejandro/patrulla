@@ -2,38 +2,52 @@
     padding-top: 15px;
 }
 .body-menu{
+   
     color: white;
-    
     background-color: rgba(0,0,0,0.5) !important;
-
-    
-
-    
     height: 90vh;
     width: 25vw;
     float: left;
-
-   
 }
 .body-opcion{
+
     color: white;
-    
     background-color: rgba(0,0,0,0.9) !important;
 
-
-
-    height: 90vh;
-    width: 70vw;
+    height: 85vh;
+    width: 50vw;
     float: right;
 }   
 .img{
     align-content: center;
 }
-
-
-/* #VerAlertas{
+.ver_alertas{
+    overflow: auto;
+    height: 80vh;
+}
+.ver_alertas::-webkit-scrollbar{
+    width: 10px;
+   
+}
+.ver_sensores{
+    overflow: auto;
+    height: 80vh;
+}
+.ver_sensores::-webkit-scrollbar{
+    width: 10px;
+   
+}
+.ver_patrullas{
+    overflow: auto;
+    height: 80vh;
+}
+.ver_patrullas::-webkit-scrollbar{
+    width: 10px;
+   
+}
+#VerAlertas{
     display: none;
-} */
+}
 #VerSensores{
     display: none;
 }
