@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/manager.css';
 import { Row, Col, Container, Image, Button, Form } from 'react-bootstrap';
@@ -83,7 +84,7 @@ function ManagerAuthOff() {
     </div>);
 }
 function VerAlertas() {
-    const [{ data, loading, error }, refetch] = useAxios(
+    const [{ data, loading, error }] = useAxios(
         'http://localhost:3000/api/read_alertas'
     )
 
@@ -146,7 +147,7 @@ function VerAlertas() {
 
 }
 function VerSensores() {
-    const [{ data, loading, error }, refetch] = useAxios(
+    const [{ data, loading, error }] = useAxios(
         'http://localhost:3000/api/read_sensores'
     )
 
@@ -209,7 +210,7 @@ function VerSensores() {
 }
 function VerPatrullas() {
 
-    const [{ data, loading, error }, refetch] = useAxios(
+    const [{ data, loading, error }] = useAxios(
         'http://localhost:3000/api/read_patrullas'
     )
 

@@ -1,27 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './css/mapas.css';
-import axios from 'axios';
+
 import useAxios from 'axios-hooks'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col, Button, Container } from 'react-bootstrap';
 import SimpleMap from './google_map';
 
-import data from '../data';
 function cerrar(id) {
   var eliminar = document.getElementById(id + '-nt');
   if (eliminar) {
-    alert('ok enviar');
     eliminar.style.display = 'none';
   }
 }
-function enviar(id) {
-  var eliminar = document.getElementById(id + '-nt');
-  if (eliminar) {
-    alert('ok enviar');
-    eliminar.style.display = 'none';
-  }
-}
+
 function MapasAuthOff() {
   return (<div>
     <div className="body-manager">
@@ -38,103 +30,119 @@ function MapasAuthOff() {
   </div>);
 }
 function MapasAuthOn({ state }) {
-  // const alertas = data.docs[0].alertas;
-  // const sensores = data.docs[0].sensores;
-  const [{ alertas, loading_alerta, error_alerta }, refetch] = useAxios(
+ 
+  const [{ data: alertas, loading: loading_alerta, error: error_alerta }] = useAxios(
     'http://localhost:3000/api/read_alertas'
   )
-  const [{ sensores, loading_sensores, error_sensores }, refetch] = useAxios(
+  const [{ data: sensores, loading: loading_sensores, error: error_sensores }] = useAxios(
     'http://localhost:3000/api/read_sensores'
   )
-  const [{ patrullas, loading_patrullas, error_patrullas }, refetch] = useAxios(
+  const [{ data: patrullas, loading: loading_patrullas, error: error_patrullas }] = useAxios(
     'http://localhost:3000/api/read_patrullas'
   )
   if (loading_alerta && loading_sensores && loading_patrullas) return <p>Loading...</p>
   if (error_alerta && error_sensores && error_patrullas) return <p>Error!</p>
+  var notificaciones;
+  var listaDeSensores;
+  var listaDePatrullas;
+  var ver;
+  if (alertas) {
+    ver = alertas.alertas;
+    notificaciones = ver.map((alerta, id) =>
+      <div key={id + "-nt"} id={id + "-nt"} >
+        <br></br>
+        <div className="nota">
+          <Row>
+            <Col xs lg={6}>
+              <h4>{alerta.nombre}</h4>
+            </Col>
+            <Col xs lg={6}>
+              <div className="button-enviar-cerrar">
+                <Button variant="outline-danger" id={id} onClick={(e) => cerrar(e.target.id)}>X</Button>
+              </div>
+             
+            </Col>
+          </Row>
+          <Row>
+            <Col xs lg={6}>
+              <hr></hr>
+              <h6>Email: {alerta.emailDestino}</h6>
+              <h6>Ubicacion: {alerta.ubicacion}</h6>
+              <h6>Serial: {alerta.serial}</h6>
+            </Col>
+            <Col xs lg={6}>
+              <hr></hr>
+              <h6>Hora: {alerta.hora}</h6>
+              <h6>Fecha: {alerta.fecha}</h6>
+              <hr></hr>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs lg={12}>
+              <h6>Informacion:</h6>
+              <p>{alerta.informacion}</p>
+            </Col>
+          </Row>
+        </div>
+      </div>
+    );
+  }
 
-  const notificaciones = alertas.map((alerta, id) =>
-    <div key={id + "-nt"} id={id + "-nt"} >
-      <br></br>
-      <div className="nota">
-        <Row>
-          <Col xs lg={6}>
-            <h4>{alerta.nombre}</h4>
-          </Col>
-          <Col xs lg={6}>
-            <div className="button-enviar-cerrar">
-              <Button variant="outline-danger" id={id} onClick={(e) => cerrar(e.target.id)}>X</Button>
-            </div>
-            <div className="button-enviar-enviar">
-              <Button variant="success" id={id} onClick={(e) => enviar(e.target.id)}>Enviar</Button>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs lg={6}>
-            <hr></hr>
-            <h6>Email: {alerta.emailDestino}</h6>
-            <h6>Ubicacion: {alerta.ubicacion}</h6>
-            <h6>Serial: {alerta.serial}</h6>
-          </Col>
-          <Col xs lg={6}>
-            <hr></hr>
-            <h6>Hora: {alerta.hora}</h6>
-            <h6>Fecha: {alerta.fecha}</h6>
-            <hr></hr>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs lg={12}>
-            <h6>Informacion:</h6>
-            <p>{alerta.informacion}</p>
-          </Col>
-        </Row>
-      </div>
-    </div>
-  );
-  const listaDeSensores = sensores.map((sensor, id) =>
-    <Col xs lg={4}>
-      <div key={id + "-ls"} className="listaDesensores">
-        <Row>
-          <Col xs lg={12}>
-            <h4>{sensor.nombre}</h4>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs lg={12}>
-            <h6>Valor Maximo = {sensor.valMaximo}</h6>
-          </Col>
-          <Col xs lg={12}>
-            <h6>Valor Minimo = {sensor.ValMinimo}</h6>
-          </Col>
-          <Col xs lg={12}>
-            <h6>Ubicacion : {sensor.ubicacion}</h6>
-          </Col>
-          <Col xs lg={12}>
-            <h6>Email : {sensor.email}</h6>
-          </Col>
-        </Row>
-        <hr></hr>
-      </div>
-    </Col>
-  );
-  const listaDePatrullas = patrullas.map((patrulla, id) =>
-    <Col xs lg={4}>
-      <div key={id + "-ps"} className="listaDesensores">
-        <Row>
-          <Col xs lg={12}>
-            <h4>{patrulla.nombre}</h4>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs lg={12}>
-            <h6>Email = {patrulla.email}</h6>
-          </Col>
-        </Row>
-        <hr></hr>
-      </div>
-    </Col>
-  );
+  if (sensores) {
+
+   ver = sensores.sensores;
+    listaDeSensores = ver.map((sensor, id) =>
+      <Col xs lg={4}>
+        <div key={id + "-ls"} className="listaDesensores">
+          <Row>
+            <Col xs lg={12}>
+              <h4>{sensor.nombre}</h4>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs lg={12}>
+              <h6>Valor Maximo = {sensor.valMaximo}</h6>
+            </Col>
+            <Col xs lg={12}>
+              <h6>Valor Minimo = {sensor.ValMinimo}</h6>
+            </Col>
+            <Col xs lg={12}>
+              <h6>Ubicacion : {sensor.ubicacion}</h6>
+            </Col>
+            <Col xs lg={12}>
+              <h6>Email : {sensor.email}</h6>
+            </Col>
+          </Row>
+          <hr></hr>
+        </div>
+      </Col>
+    );
+
+
+  }
+  if (patrullas) {
+
+    ver = patrullas.patrullas;
+    listaDePatrullas = ver.map((patrulla, id) =>
+      <Col xs lg={4}>
+        <div key={id + "-ps"} className="listaDesensores">
+          <Row>
+            <Col xs lg={12}>
+              <h4>{patrulla.nombre}</h4>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs lg={12}>
+              <h6>Email = {patrulla.email}</h6>
+            </Col>
+          </Row>
+          <hr></hr>
+        </div>
+      </Col>
+    );
+
+  }
+
   return (
     <div className="body-map">
       <Row>
@@ -146,9 +154,7 @@ function MapasAuthOn({ state }) {
           </Col>
           <Col xs lg={12}>
             <Col xs lg={12} className="notificaciones">
-              {
-                notificaciones
-              }
+              {notificaciones}
             </Col>
           </Col>
         </Col>
