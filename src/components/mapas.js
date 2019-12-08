@@ -8,9 +8,11 @@ import { Row, Col, Button, Container } from 'react-bootstrap';
 import SimpleMap from './google_map';
 
 function cerrar(id) {
+
   var eliminar = document.getElementById(id + '-nt');
   if (eliminar) {
     eliminar.style.display = 'none';
+
   }
 }
 

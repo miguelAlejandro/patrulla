@@ -7,7 +7,49 @@ import axios from 'axios';
 import useAxios from 'axios-hooks'
 import { connect } from 'react-redux';
 
-
+function eliminarPatrulla(id){
+    console.log(id)
+    var element = document.getElementById(id);
+    if(element && id){
+        axios.post('http://localhost:3000/api/delete_patrullas', {id}).then((req, res) => {
+            console.log(res)
+            element.parentNode.removeChild(element);
+    
+        }).catch((err) => {
+            console.log("error")
+    
+        })
+    }
+   
+}
+function eliminarAlerta(id){
+    console.log(id)
+    var element = document.getElementById(id);
+    if(element && id){
+        axios.post('http://localhost:3000/api/delete_alertas', {id}).then((req, res) => {
+            console.log(res)
+            element.parentNode.removeChild(element);
+    
+        }).catch((err) => {
+            console.log("error")
+    
+        })
+    }
+}
+function eliminarSensor(id){
+    console.log(id)
+    var element = document.getElementById(id);
+    if(element && id){
+        axios.post('http://localhost:3000/api/delete_sensores', {id}).then((req, res) => {
+            console.log(res)
+            element.parentNode.removeChild(element);
+    
+        }).catch((err) => {
+            console.log("error")
+    
+        })
+    }
+}
 
 function alertaPost(e) {
     e.preventDefault();
@@ -100,7 +142,7 @@ function VerAlertas() {
 
                         <div className="ver_alertas">
                             {data.alertas.map((alerta =>
-                                <div className="ve_alerta">
+                                <div className="ve_alerta" id={alerta._id}>
                                     <Row>
                                         <Col xs lg={12}>
                                             <Row>
@@ -109,7 +151,7 @@ function VerAlertas() {
                                                 </Col>
 
                                                 <Col xs lg={4}>
-                                                    <Button>X</Button>
+                                                <Button onClick={() => eliminarAlerta(alerta._id)}>X</Button>
                                                 </Col>
                                             
                                             </Row>
@@ -163,7 +205,7 @@ function VerSensores() {
 
                         <div className="ver_sensores">
                             {data.sensores.map((sensor =>
-                                <div className="ve_sensor">
+                                <div className="ve_sensor" id={sensor._id}>
                                     <Row>
                                         <Col xs lg={12}>
                                             <Row>
@@ -172,7 +214,7 @@ function VerSensores() {
                                                 </Col>
 
                                                 <Col xs lg={4}>
-                                                    <Button>X</Button>
+                                                    <Button onClick={() => eliminarSensor(sensor._id)}>X</Button>
                                                 </Col>
                                             
                                             </Row>
@@ -205,8 +247,6 @@ function VerSensores() {
 
     )
 
-    
-
 }
 function VerPatrullas() {
 
@@ -226,7 +266,7 @@ function VerPatrullas() {
 
                         <div className="ver_patrullas">
                             {data.patrullas.map((patrulla =>
-                                <div className="ve_patrulla">
+                                <div className="ve_patrulla" id={patrulla._id}>
                                     <Row>
                                         <Col xs lg={12}>
                                             <Row>
@@ -235,7 +275,7 @@ function VerPatrullas() {
                                                 </Col>
 
                                                 <Col xs lg={4}>
-                                                    <Button>X</Button>
+                                                    <Button onClick={() => eliminarPatrulla(patrulla._id)}>X</Button>
                                                 </Col>
                                             
                                             </Row>
