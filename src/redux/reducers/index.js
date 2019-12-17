@@ -1,10 +1,11 @@
 import { LOGIN_IN, LOGIN_OUT } from '../type'
 
 const initialState = {
-  email: 'admin',
+  email: 'admin@gmail.com',
   token: 'admin',
-  patrullas: [{}],
-  sensores: [{}]
+  name: 'admin',
+  image: '',
+  role: 'Admin'
 };
 
 function rootReducer(state = initialState, action) {
@@ -16,7 +17,8 @@ function rootReducer(state = initialState, action) {
         token: action.payload.token,
         email: action.payload.email,
         name:  action.payload.name,
-        image: action.payload.image
+        image: action.payload.image,
+        role: action.payload.role,
 
       };
     case LOGIN_OUT:
@@ -26,7 +28,8 @@ function rootReducer(state = initialState, action) {
         token: null,
         email: null,
         name:  null,
-        image: null
+        image: null,
+        role: null
 
       };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/login.css';
 import { Form, Button, Row, Col, Container } from 'react-bootstrap';
@@ -29,14 +28,14 @@ function loginUp(e) {
             email: e.target.elements.emailUp.value,
             password: e.target.elements.PasswordUp1.value,
             role: e.target.elements.role.value,
-            activar: null,
-            image: null,
+            image: e.target.elements.imagen.value
         }
-
+        console.log(docs);
         axios.post('http://localhost:3000/api/sign_up', { docs })
             .then(function (response) {
                 if (response) {
                     alert("Login Up");
+                    
                 }
             })
             .catch(function (error) {
@@ -62,8 +61,9 @@ function loginIn(e, outUser, inUser) {
             .then(function (response) {
                 if (response) {
                     if (response.data.token) { 
-                        alert(`Login In data { message: ${response.data.message} , token :${response.data.token} } `);
-                        inUser({ email: docs.email, token: response.data.token,  name: response.data.name, image: response.data.image});
+                        alert(`Message: ${response.data.message}`);
+                        inUser({ email: docs.email, token: response.data.token,  name: response.data.name, image: response.data.image,  role: response.data.role});
+                        
                     } else { 
                         alert(`Error email and password login out`);
                         outUser();
@@ -86,7 +86,7 @@ function loginIn(e, outUser, inUser) {
 
 //Component Login
 function Login({state, outUser, inUser }) {
-    console.log(state);
+    
     return (
         <div className="body-login">
             <Container>
@@ -136,6 +136,10 @@ function Login({state, outUser, inUser }) {
                                 <Form.Group controlId="PasswordUp2">
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control type="password" placeholder="Password" />
+                                </Form.Group>
+                                <Form.Group controlId="imagen">
+                                    <Form.Label>Url imagen</Form.Label>
+                                    <Form.Control type="text" placeholder="Url Imagen" />
                                 </Form.Group>
                                 <Form.Group controlId="role">
                                     <Form.Label>Type</Form.Label>

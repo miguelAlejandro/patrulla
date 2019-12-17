@@ -7,46 +7,46 @@ import axios from 'axios';
 import useAxios from 'axios-hooks'
 import { connect } from 'react-redux';
 
-function eliminarPatrulla(id){
+function eliminarPatrulla(id) {
     console.log(id)
     var element = document.getElementById(id);
-    if(element && id){
-        axios.post('http://localhost:3000/api/delete_patrullas', {id}).then((req, res) => {
+    if (element && id) {
+        axios.post('http://localhost:3000/api/delete_patrullas', { id }).then((req, res) => {
             console.log(res)
             element.parentNode.removeChild(element);
-    
+
         }).catch((err) => {
             console.log("error")
-    
+
         })
     }
-   
+
 }
-function eliminarAlerta(id){
+function eliminarAlerta(id) {
     console.log(id)
     var element = document.getElementById(id);
-    if(element && id){
-        axios.post('http://localhost:3000/api/delete_alertas', {id}).then((req, res) => {
+    if (element && id) {
+        axios.post('http://localhost:3000/api/delete_alertas', { id }).then((req, res) => {
             console.log(res)
             element.parentNode.removeChild(element);
-    
+
         }).catch((err) => {
             console.log("error")
-    
+
         })
     }
 }
-function eliminarSensor(id){
+function eliminarSensor(id) {
     console.log(id)
     var element = document.getElementById(id);
-    if(element && id){
-        axios.post('http://localhost:3000/api/delete_sensores', {id}).then((req, res) => {
+    if (element && id) {
+        axios.post('http://localhost:3000/api/delete_sensores', { id }).then((req, res) => {
             console.log(res)
             element.parentNode.removeChild(element);
-    
+
         }).catch((err) => {
             console.log("error")
-    
+
         })
     }
 }
@@ -57,12 +57,10 @@ function alertaPost(e) {
         nombre: e.target.elements.nombre.value,
         email: e.target.elements.email.value,
         emailDestino: e.target.elements.emailDestino.value,
-        ubicacion: e.target.elements.ubicacion.value,
-        informacion: e.target.elements.informacion.value,
-        serial: e.target.elements.serial.value,
+        informacion: e.target.elements.informacion.value
     }
 
-    if (docs.nombre && docs.email && docs.emailDestino && docs.ubicacion && docs.informacion && docs.serial) {
+    if (docs.nombre && docs.email && docs.emailDestino && docs.informacion) {
         console.log(docs)
         axios.post("http://localhost:3000/api/create_alertas", docs).then(function (res) {
             alert(res.data.message);
@@ -76,13 +74,12 @@ function sensorPost(e) {
     const docs = {
         nombre: e.target.elements.nombre.value,
         email: e.target.elements.email.value,
-        serial: e.target.elements.serial.value,
-        ubicacion: e.target.elements.ubicacion.value,
-        valMaximo: e.target.elements.valMaximo.value,
-        ValMinimo: e.target.elements.ValMinimo.value,
+        codigo: e.target.elements.serial.value,
+        ejeX: e.target.elements.ejeX.value,
+        ejeY: e.target.elements.ejeY.value
     }
 
-    if (docs.nombre && docs.email && docs.valMaximo && docs.ubicacion && docs.ValMinimo && docs.serial) {
+    if (docs.nombre && docs.email && docs.codigo && docs.ejeX && docs.ejeY) {
         console.log(docs)
         axios.post("http://localhost:3000/api/create_sensores", docs).then(function (res) {
             alert(res.data.message)
@@ -97,10 +94,11 @@ function patrullaPost(e) {
     const docs = {
         nombre: e.target.elements.nombre.value,
         email: e.target.elements.email.value,
-        serial: e.target.elements.serial.value
+        ejeX: e.target.elements.ejeX.value,
+        ejeY: e.target.elements.ejeY.value
     }
-
-    if (docs.nombre && docs.email && docs.serial) {
+    console.log(docs);
+    if (docs.nombre && docs.email && docs.ejeX && docs.ejeY) {
         console.log(docs)
         axios.post("http://localhost:3000/api/create_patrullas", docs).then(function (res) {
             alert(res.data.message)
@@ -125,49 +123,46 @@ function ManagerAuthOff() {
 
     </div>);
 }
-function VerAlertas() {
+function VerAlertas({ email }) {
     const [{ data, loading, error }] = useAxios(
         'http://localhost:3000/api/read_alertas'
     )
 
-    if (loading) return <p>Loading...</p>
-    if (error) return <p>Error!</p>
-
+    if (loading) return <div className="VerAlertas" id="VerAlertas"><p>Loading...</p></div>
+    if (error) return <div className="VerAlertas" id="VerAlertas"><p>No hay alertas registradas</p></div>
+    const myData = []
+    data.alertas.forEach(d => {
+        if (d.emailDestino === email) {
+            console.log(d);
+            myData.push(d)
+        }
+    });
     return (
         <div className="VerAlertas" id="VerAlertas">
             <Row>
                 <Col xs lg={12}>
                     <div>
                         <h1>Ver Alertas</h1>
-
                         <div className="ver_alertas">
-                            {data.alertas.map((alerta =>
+                            {myData.map((alerta =>
                                 <div className="ve_alerta" id={alerta._id}>
                                     <Row>
                                         <Col xs lg={12}>
                                             <Row>
                                                 <Col xs lg={8}>
-                                                <h2>{alerta.nombre}</h2>
+                                                    <h2>{alerta.nombre}</h2>
                                                 </Col>
 
                                                 <Col xs lg={4}>
-                                                <Button onClick={() => eliminarAlerta(alerta._id)}>X</Button>
+                                                    <Button onClick={() => eliminarAlerta(alerta._id)}>X</Button>
                                                 </Col>
-                                            
                                             </Row>
-                                            
-                                            <hr></hr>
                                         </Col>
                                         <Col xs lg={6}>
-
                                             <h6>Email : {alerta.email}</h6>
-                                            <h6>Email destino : {alerta.emailDestino}</h6>
-
                                         </Col>
                                         <Col xs lg={6}>
-                                            <h6>Ubicacion : {alerta.ubicacion}</h6>
-                                            <h6>Serial : {alerta.serial}</h6>
-
+                                            <h6>Email destino : {alerta.emailDestino}</h6>
                                         </Col>
                                         <Col xs lg={12}>
                                             <h4>Informacion</h4>
@@ -188,14 +183,14 @@ function VerAlertas() {
     )
 
 }
-function VerSensores() {
+function VerSensores({ role }) {
     const [{ data, loading, error }] = useAxios(
         'http://localhost:3000/api/read_sensores'
     )
 
-    if (loading) return <p>Loading...</p>
-    if (error) return <p>Error!</p>
-
+    if (loading) return <div className="VerSensores" id="VerSensores"><p>Loading...</p></div>
+    if (error) return <div className="VerSensores" id="VerSensores"><p>No hay sensores registrados</p></div>
+    console.log(data)
     return (
         <div className="VerSensores" id="VerSensores">
             <Row>
@@ -210,29 +205,30 @@ function VerSensores() {
                                         <Col xs lg={12}>
                                             <Row>
                                                 <Col xs lg={8}>
-                                                <h2>{sensor.nombre}</h2>
+                                                    <h2>{sensor.nombre}</h2>
                                                 </Col>
 
                                                 <Col xs lg={4}>
-                                                    <Button onClick={() => eliminarSensor(sensor._id)}>X</Button>
+                                                    {role === "Admin" ? (<Button onClick={() => eliminarSensor(sensor._id)}>X</Button>) : (<div></div>)}
+
                                                 </Col>
-                                            
+
                                             </Row>
-                                            
+
                                             <hr></hr>
                                         </Col>
                                         <Col xs lg={6}>
 
                                             <h6>Email : {sensor.email}</h6>
-                                            <h6>Ubicacion : {sensor.ubicacion}</h6>
-                                            <h6>Serial : {sensor.serial}</h6>
 
                                         </Col>
                                         <Col xs lg={6}>
-                                        <h6>Valor maximo : {sensor.valMaximo}</h6>
-                                        <h6>Valor minimo : {sensor.ValMinimo}</h6>
+                                            <h6>Serial : {sensor.codigo}</h6>
+                                            <h6>Ubicacion</h6>
+                                            <h6> x = {sensor.ejeX}</h6>
+                                            <h6> y = {sensor.ejeY}</h6>
                                         </Col>
-                                        
+
                                     </Row>
 
 
@@ -248,14 +244,14 @@ function VerSensores() {
     )
 
 }
-function VerPatrullas() {
+function VerPatrullas({ role }) {
 
     const [{ data, loading, error }] = useAxios(
         'http://localhost:3000/api/read_patrullas'
     )
 
-    if (loading) return <p>Loading...</p>
-    if (error) return <p>Error!</p>
+    if (loading) return <div className="VerPatrullas" id="VerPatrullas"><p>Loading...</p></div>
+    if (error) return <div className="VerPatrullas" id="VerPatrullas"><p>No hay patrullas registradas</p></div>
 
     return (
         <div className="VerPatrullas" id="VerPatrullas">
@@ -271,29 +267,31 @@ function VerPatrullas() {
                                         <Col xs lg={12}>
                                             <Row>
                                                 <Col xs lg={8}>
-                                                <h2>{patrulla.nombre}</h2>
+                                                    <h2>{patrulla.nombre}</h2>
                                                 </Col>
 
                                                 <Col xs lg={4}>
-                                                    <Button onClick={() => eliminarPatrulla(patrulla._id)}>X</Button>
+                                                    {role === "Admin" ? (<Button onClick={() => eliminarPatrulla(patrulla._id)}>X</Button>) : (<div></div>)}
+
                                                 </Col>
-                                            
+
                                             </Row>
-                                            
+
                                             <hr></hr>
                                         </Col>
                                         <Col xs lg={6}>
 
+                                            <h6>Nombre : {patrulla.nombre}</h6>
                                             <h6>Email : {patrulla.email}</h6>
-                                            <h6>Ubicacion : {patrulla.ubicacion}</h6>
-                                            <h6>Serial : {patrulla.serial}</h6>
+
 
                                         </Col>
                                         <Col xs lg={6}>
-                                        <h6>Valor maximo : {patrulla.valMaximo}</h6>
-                                        <h6>Valor minimo : {patrulla.ValMinimo}</h6>
+                                            <h6>Ubicacion</h6>
+                                            <h6>X : {patrulla.ejeX}</h6>
+                                            <h6>Y : {patrulla.ejeY}</h6>
                                         </Col>
-                                        
+
                                     </Row>
 
 
@@ -317,7 +315,7 @@ function RegistrarAlertas() {
                     <Form onSubmit={(e) => alertaPost(e)}>
 
                         <div >
-                            <br></br>
+
                             <h1>Registrar Alertas</h1>
                             <hr></hr>
                         </div>
@@ -342,21 +340,6 @@ function RegistrarAlertas() {
                             <Form.Control type="text" placeholder="@ " />
                             <Form.Text className="text-muted">
                                 Email destino.
-                        </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group controlId="ubicacion">
-                            <Form.Label>Ubicacion</Form.Label>
-                            <Form.Control type="text" placeholder="" />
-                            <Form.Text className="text-muted">
-                                Google Map Ubicacion.
-                        </Form.Text>
-                        </Form.Group>
-                        <Form.Group controlId="serial">
-                            <Form.Label>Serial</Form.Label>
-                            <Form.Control type="text" placeholder="xxx-xxxx" />
-                            <Form.Text className="text-muted">
-                                Los seriales son unicos.
                         </Form.Text>
                         </Form.Group>
 
@@ -387,8 +370,8 @@ function RegistrarSensores() {
                     <Form onSubmit={(e) => sensorPost(e)}>
 
                         <div >
-                            <br></br>
-                            <h1>Registrar Alertas</h1>
+
+                            <h1>Registrar Sensores</h1>
                             <hr></hr>
                         </div>
 
@@ -399,6 +382,7 @@ function RegistrarSensores() {
                                 nombre de la sensor a registras.
                         </Form.Text>
                         </Form.Group>
+
                         <Form.Group controlId="email">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="text" placeholder="@ " />
@@ -407,35 +391,29 @@ function RegistrarSensores() {
                         </Form.Text>
                         </Form.Group>
 
-                        <Form.Group controlId="ubicacion">
-                            <Form.Label>Ubicacion</Form.Label>
-                            <Form.Control type="text" placeholder="" />
-                            <Form.Text className="text-muted">
-                                Google Map Ubicacion.
-                        </Form.Text>
-                        </Form.Group>
                         <Form.Group controlId="serial">
-                            <Form.Label>Serial</Form.Label>
+                            <Form.Label>Codigo</Form.Label>
                             <Form.Control type="text" placeholder="xxx-xxxx" />
                             <Form.Text className="text-muted">
-                                Los seriales son unicos.
-                        </Form.Text>
-                        </Form.Group>
-                        <Form.Group controlId="valMaximo">
-                            <Form.Label>Maximo</Form.Label>
-                            <Form.Control type="text" placeholder="%" />
-                            <Form.Text className="text-muted">
-                                Valor maximo.
-                        </Form.Text>
-                        </Form.Group>
-                        <Form.Group controlId="ValMinimo">
-                            <Form.Label>Minimo</Form.Label>
-                            <Form.Control type="text" placeholder="%" />
-                            <Form.Text className="text-muted">
-                                Valor minimo
+                                Los codigos son unicos.
                         </Form.Text>
                         </Form.Group>
 
+                        <Form.Group controlId="ejeX">
+                            <Form.Label>X</Form.Label>
+                            <Form.Control type="text" placeholder="" />
+                            <Form.Text className="text-muted">
+                                Google Map Ubicacion X.
+                        </Form.Text>
+                        </Form.Group>
+
+                        <Form.Group controlId="ejeY">
+                            <Form.Label>Y</Form.Label>
+                            <Form.Control type="text" placeholder="" />
+                            <Form.Text className="text-muted">
+                                Google Map Ubicacion Y.
+                        </Form.Text>
+                        </Form.Group>
 
                         <Button variant="primary" type="submit">
                             Registrar
@@ -443,7 +421,6 @@ function RegistrarSensores() {
 
                     </Form>
                 </Col>
-
             </Row>
         </div>
 
@@ -457,7 +434,6 @@ function RegistrarPatrullas() {
 
                 <Col xs lg={10}>
                     <div >
-                        <br></br>
                         <h1>Registrar Patrullas</h1>
                         <hr></hr>
                     </div>
@@ -488,6 +464,21 @@ function RegistrarPatrullas() {
                         </Form.Text>
                         </Form.Group>
 
+                        <Form.Group controlId="ejeX">
+                            <Form.Label>X</Form.Label>
+                            <Form.Control type="text" placeholder="" />
+                            <Form.Text className="text-muted">
+                                Google Map Ubicacion X.
+                        </Form.Text>
+                        </Form.Group>
+
+                        <Form.Group controlId="ejeY">
+                            <Form.Label>Y</Form.Label>
+                            <Form.Control type="text" placeholder="" />
+                            <Form.Text className="text-muted">
+                                Google Map Ubicacion Y.
+                        </Form.Text>
+                        </Form.Group>
                         <Button variant="primary" type="submit">
                             Registrar
                         </Button>
@@ -677,7 +668,7 @@ function ManagerAuthOn({ state, outUser }) {
                     <Row>
                         <Col xs lg={12} >
                             <div className="img">
-                                <Image src="/logo192.png" />
+                                {state.image === "" ? (<Image src="/logo192.png" height='200px' width='200px'/>): (<Image src={state.image} height='200px' width='200px'/>)}
                                 <div className='datos'>
                                     <h6>User: {state.name}</h6>
                                     <h6>Email: {state.email}</h6>
@@ -692,14 +683,18 @@ function ManagerAuthOn({ state, outUser }) {
                                 <Button variant="link" onClick={menuVerAlerta}>Alertas</Button>
                                 <Button variant="link" onClick={menuVerSensores}>Sensores</Button>
                                 <Button variant="link" onClick={nemuVerPatrullas}>Patrullas</Button>
-                                <h5>Registrar</h5>
-                                <Button variant="link" onClick={menuRegistrarAlertas}>Alertas</Button>
-                                <Button variant="link" onClick={menuRegistrarSensores}>Sensores</Button>
-                                <Button variant="link" onClick={menuRegistrarPatrullas}>Patrullas</Button>
-                                <h5>Configuraciones</h5>
-                                <Button variant="link" onClick={menuMiCuenta}>Mi cuenta</Button>
-                                <Button variant="link" onClick={menuUsuarios}>Usuarios</Button>
-                                <Button variant="link" onClick={menuOtros}>Otros</Button>
+                                {state.role === 'Admin' ?
+                                    (<div><h5>Registrar</h5>
+                                        <Button variant="link" onClick={menuRegistrarAlertas}>Alertas</Button>
+                                        <Button variant="link" onClick={menuRegistrarSensores}>Sensores</Button>
+                                        <Button variant="link" onClick={menuRegistrarPatrullas}>Patrullas</Button>
+                                        <h5>Configuraciones</h5>
+                                        <Button variant="link" onClick={menuMiCuenta}>Mi cuenta</Button>
+                                        <Button variant="link" onClick={menuUsuarios}>Usuarios</Button>
+                                        <Button variant="link" onClick={menuOtros}>Otros</Button></div>) : (<div></div>)
+
+                                }
+
 
                             </div>
                             <hr></hr>
@@ -711,13 +706,13 @@ function ManagerAuthOn({ state, outUser }) {
                 <Col xs lg={8}>
                     <Row>
                         <Col xs lg={12} className='body-opcion'>
-                            <VerAlertas />
-                            <VerSensores />
-                            <VerPatrullas />
+                            <VerAlertas email={state.email} role={state.role}/>
+                            <VerSensores  role={state.role}/>
+                            <VerPatrullas role={state.role}/>
 
-                            <RegistrarAlertas />
-                            <RegistrarSensores />
-                            <RegistrarPatrullas />
+                            <RegistrarAlertas  />
+                            <RegistrarSensores  />
+                            <RegistrarPatrullas  />
 
                             <MiCuenta />
                             <Usuarios />

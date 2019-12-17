@@ -102,18 +102,20 @@ function MapasAuthOn({ state }) {
             </Col>
           </Row>
           <Row>
-            <Col xs lg={12}>
-              <h6>Valor Maximo = {sensor.valMaximo}</h6>
-            </Col>
-            <Col xs lg={12}>
-              <h6>Valor Minimo = {sensor.ValMinimo}</h6>
-            </Col>
-            <Col xs lg={12}>
-              <h6>Ubicacion : {sensor.ubicacion}</h6>
-            </Col>
-            <Col xs lg={12}>
+          <Col xs lg={12}>
               <h6>Email : {sensor.email}</h6>
+              <h6>Serial : {sensor.codigo}</h6>
             </Col>
+            <Col xs lg={12}>
+              <h6>Valor = {sensor.valMaximo}</h6>
+            </Col>
+           
+            <Col xs lg={12}>
+              <h5>Ubicacion</h5>
+              <h6>X : {sensor.ejeX}</h6>
+              <h6>Y : {sensor.ejeY}</h6>
+            </Col>
+            
           </Row>
           <hr></hr>
         </div>
@@ -128,15 +130,23 @@ function MapasAuthOn({ state }) {
     listaDePatrullas = ver.map((patrulla, id) =>
       <Col xs lg={4}>
         <div key={id + "-ps"} className="listaDesensores">
-          <Row>
+        <Row>
             <Col xs lg={12}>
               <h4>{patrulla.nombre}</h4>
             </Col>
           </Row>
           <Row>
-            <Col xs lg={12}>
-              <h6>Email = {patrulla.email}</h6>
+          <Col xs lg={12}>
+              <h6>Email : {patrulla.email}</h6>
             </Col>
+            
+           
+            <Col xs lg={12}>
+              <h5>Ubicacion</h5>
+              <h6>X : {patrulla.ejeX}</h6>
+              <h6>Y : {patrulla.ejeY}</h6>
+            </Col>
+            
           </Row>
           <hr></hr>
         </div>
