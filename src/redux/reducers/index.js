@@ -11,7 +11,7 @@ const initialState = {
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_IN:
-      console.log(state);
+      
       return {
         ...state,
         token: action.payload.token,
@@ -22,7 +22,7 @@ function rootReducer(state = initialState, action) {
 
       };
     case LOGIN_OUT:
-      console.log(state);
+     
       return {
         ...state,
         token: null,

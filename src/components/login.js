@@ -30,7 +30,7 @@ function loginUp(e) {
             role: e.target.elements.role.value,
             image: e.target.elements.imagen.value
         }
-        console.log(docs);
+        
         axios.post('http://localhost:3000/api/sign_up', { docs })
             .then(function (response) {
                 if (response) {

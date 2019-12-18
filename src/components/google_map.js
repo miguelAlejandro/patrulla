@@ -32,12 +32,7 @@ function SimpleMap(props) {
         zoom: 12
     };
 
-    console.log(getSensores)
-    console.log(getPatrullas)
 
-    const handleApiLoaded = (map, maps) => {
-        // use map and maps objects
-    };
     return (
         // Important! Always set the container height explicitly
 
@@ -45,14 +40,13 @@ function SimpleMap(props) {
 
             <GoogleMapReact bootstrapURLKeys={{ key: "AIzaSyDOwoAFQVTjgqYs1r5f7j_6Y4yr5er2-v8" }}
                 defaultCenter={defaultProps.center}
-                defaultZoom={defaultProps.zoom}
-                yesIWantToUseGoogleMapApiInternals onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)} >
+                defaultZoom={defaultProps.zoom}>
 
-                {getSensores.sensores.map((d) =>  <Sensor lat={parseFloat(d.ejeX)}
+                {getSensores.sensores.map((d, i) =>  <Sensor key={i} lat={parseFloat(d.ejeX)}
                     lng={parseFloat(d.ejeY)}
                     text={d.nombre} /
                 >)}
-               {getPatrullas.patrullas.map((p) =>  <Patrulla lat={parseFloat(p.ejeX)}
+               {getPatrullas.patrullas.map((p, j) =>  <Patrulla key={j} lat={parseFloat(p.ejeX)}
                     lng={parseFloat(p.ejeY)}
                     text={p.nombre} /
                 >)}

@@ -1,4 +1,3 @@
-// import React, { useState, useEffect } from 'react';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/manager.css';
@@ -8,44 +7,44 @@ import useAxios from 'axios-hooks'
 import { connect } from 'react-redux';
 
 function eliminarPatrulla(id) {
-    console.log(id)
+    
     var element = document.getElementById(id);
     if (element && id) {
         axios.post('http://localhost:3000/api/delete_patrullas', { id }).then((req, res) => {
-            console.log(res)
+           
             element.parentNode.removeChild(element);
 
         }).catch((err) => {
-            console.log("error")
+           
 
         })
     }
 
 }
 function eliminarAlerta(id) {
-    console.log(id)
+    
     var element = document.getElementById(id);
     if (element && id) {
         axios.post('http://localhost:3000/api/delete_alertas', { id }).then((req, res) => {
-            console.log(res)
+            
             element.parentNode.removeChild(element);
 
         }).catch((err) => {
-            console.log("error")
+            
 
         })
     }
 }
 function eliminarSensor(id) {
-    console.log(id)
+   
     var element = document.getElementById(id);
     if (element && id) {
         axios.post('http://localhost:3000/api/delete_sensores', { id }).then((req, res) => {
-            console.log(res)
+            
             element.parentNode.removeChild(element);
 
         }).catch((err) => {
-            console.log("error")
+            
 
         })
     }
@@ -54,14 +53,14 @@ function eliminarSensor(id) {
 function alertaPost(e) {
     e.preventDefault();
     const docs = {
-        nombre: e.target.elements.nombre.value,
-        email: e.target.elements.email.value,
-        emailDestino: e.target.elements.emailDestino.value,
-        informacion: e.target.elements.informacion.value
+        nombre: e.target.elements.nombre_1.value,
+        email: e.target.elements.email_1.value,
+        emailDestino: e.target.elements.emailDestino_1.value,
+        informacion: e.target.elements.informacion_1.value
     }
 
     if (docs.nombre && docs.email && docs.emailDestino && docs.informacion) {
-        console.log(docs)
+        
         axios.post("http://localhost:3000/api/create_alertas", docs).then(function (res) {
             alert(res.data.message);
         }).catch(function (err) {
@@ -72,15 +71,15 @@ function alertaPost(e) {
 function sensorPost(e) {
     e.preventDefault();
     const docs = {
-        nombre: e.target.elements.nombre.value,
-        email: e.target.elements.email.value,
-        codigo: e.target.elements.serial.value,
-        ejeX: e.target.elements.ejeX.value,
-        ejeY: e.target.elements.ejeY.value
+        nombre: e.target.elements.nombre_2.value,
+        email: e.target.elements.email_2.value,
+        codigo: e.target.elements.serial_2.value,
+        ejeX: e.target.elements.ejeX_2.value,
+        ejeY: e.target.elements.ejeY_2.value
     }
 
     if (docs.nombre && docs.email && docs.codigo && docs.ejeX && docs.ejeY) {
-        console.log(docs)
+        
         axios.post("http://localhost:3000/api/create_sensores", docs).then(function (res) {
             alert(res.data.message)
         }).catch(function (err) {
@@ -92,14 +91,14 @@ function sensorPost(e) {
 function patrullaPost(e) {
     e.preventDefault();
     const docs = {
-        nombre: e.target.elements.nombre.value,
-        email: e.target.elements.email.value,
-        ejeX: e.target.elements.ejeX.value,
-        ejeY: e.target.elements.ejeY.value
+        nombre: e.target.elements.nombre_3.value,
+        email: e.target.elements.email_3.value,
+        ejeX: e.target.elements.ejeX_3.value,
+        ejeY: e.target.elements.ejeY_3.value
     }
-    console.log(docs);
+   
     if (docs.nombre && docs.email && docs.ejeX && docs.ejeY) {
-        console.log(docs)
+       
         axios.post("http://localhost:3000/api/create_patrullas", docs).then(function (res) {
             alert(res.data.message)
         }).catch(function (err) {
@@ -133,7 +132,6 @@ function VerAlertas({ email }) {
     const myData = []
     data.alertas.forEach(d => {
         if (d.emailDestino === email) {
-            console.log(d);
             myData.push(d)
         }
     });
@@ -190,7 +188,7 @@ function VerSensores({ role }) {
 
     if (loading) return <div className="VerSensores" id="VerSensores"><p>Loading...</p></div>
     if (error) return <div className="VerSensores" id="VerSensores"><p>No hay sensores registrados</p></div>
-    console.log(data)
+    
     return (
         <div className="VerSensores" id="VerSensores">
             <Row>
@@ -200,7 +198,7 @@ function VerSensores({ role }) {
 
                         <div className="ver_sensores">
                             {data.sensores.map((sensor =>
-                                <div className="ve_sensor" id={sensor._id}>
+                                <div key={sensor._id} className="ve_sensor" id={sensor._id}>
                                     <Row>
                                         <Col xs lg={12}>
                                             <Row>
@@ -262,7 +260,7 @@ function VerPatrullas({ role }) {
 
                         <div className="ver_patrullas">
                             {data.patrullas.map((patrulla =>
-                                <div className="ve_patrulla" id={patrulla._id}>
+                                <div key={patrulla._id} className="ve_patrulla" id={patrulla._id}>
                                     <Row>
                                         <Col xs lg={12}>
                                             <Row>
@@ -320,7 +318,7 @@ function RegistrarAlertas() {
                             <hr></hr>
                         </div>
 
-                        <Form.Group controlId="nombre">
+                        <Form.Group controlId="nombre_1">
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control type="text" placeholder="alerta" />
                             <Form.Text className="text-muted">
@@ -328,14 +326,14 @@ function RegistrarAlertas() {
                         </Form.Text>
                         </Form.Group>
 
-                        <Form.Group controlId="email">
+                        <Form.Group controlId="email_1">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="text" placeholder="@ " />
                             <Form.Text className="text-muted">
                                 Email.
                         </Form.Text>
                         </Form.Group>
-                        <Form.Group controlId="emailDestino">
+                        <Form.Group controlId="emailDestino_1">
                             <Form.Label>Email Destino</Form.Label>
                             <Form.Control type="text" placeholder="@ " />
                             <Form.Text className="text-muted">
@@ -343,7 +341,7 @@ function RegistrarAlertas() {
                         </Form.Text>
                         </Form.Group>
 
-                        <Form.Group controlId="informacion">
+                        <Form.Group controlId="informacion_1">
                             <Form.Label>Informacion</Form.Label>
                             <Form.Control as="textarea" rows="3" />
                             <Form.Text className="text-muted">
@@ -375,7 +373,7 @@ function RegistrarSensores() {
                             <hr></hr>
                         </div>
 
-                        <Form.Group controlId="nombre">
+                        <Form.Group controlId="nombre_2">
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control type="text" placeholder="Sensor" />
                             <Form.Text className="text-muted">
@@ -383,7 +381,7 @@ function RegistrarSensores() {
                         </Form.Text>
                         </Form.Group>
 
-                        <Form.Group controlId="email">
+                        <Form.Group controlId="email_2">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="text" placeholder="@ " />
                             <Form.Text className="text-muted">
@@ -391,7 +389,7 @@ function RegistrarSensores() {
                         </Form.Text>
                         </Form.Group>
 
-                        <Form.Group controlId="serial">
+                        <Form.Group controlId="serial_2">
                             <Form.Label>Codigo</Form.Label>
                             <Form.Control type="text" placeholder="xxx-xxxx" />
                             <Form.Text className="text-muted">
@@ -399,7 +397,7 @@ function RegistrarSensores() {
                         </Form.Text>
                         </Form.Group>
 
-                        <Form.Group controlId="ejeX">
+                        <Form.Group controlId="ejeX_2">
                             <Form.Label>X</Form.Label>
                             <Form.Control type="text" placeholder="" />
                             <Form.Text className="text-muted">
@@ -407,7 +405,7 @@ function RegistrarSensores() {
                         </Form.Text>
                         </Form.Group>
 
-                        <Form.Group controlId="ejeY">
+                        <Form.Group controlId="ejeY_2">
                             <Form.Label>Y</Form.Label>
                             <Form.Control type="text" placeholder="" />
                             <Form.Text className="text-muted">
@@ -439,7 +437,7 @@ function RegistrarPatrullas() {
                     </div>
                     <Form onSubmit={(e) => patrullaPost(e)}>
 
-                        <Form.Group controlId="nombre">
+                        <Form.Group controlId="nombre_3">
                             <Form.Label>Nombre</Form.Label>
                             <Form.Control type="text" placeholder="Patrulla" />
                             <Form.Text className="text-muted">
@@ -447,7 +445,7 @@ function RegistrarPatrullas() {
                         </Form.Text>
                         </Form.Group>
 
-                        <Form.Group controlId="email">
+                        <Form.Group controlId="email_3">
                             <Form.Label>Email</Form.Label>
                             <Form.Control type="text" placeholder="@ " />
                             <Form.Text className="text-muted">
@@ -456,7 +454,7 @@ function RegistrarPatrullas() {
                         </Form.Group>
 
 
-                        <Form.Group controlId="serial">
+                        <Form.Group controlId="serial_3">
                             <Form.Label>Serial</Form.Label>
                             <Form.Control type="text" placeholder="xxx-xxxx" />
                             <Form.Text className="text-muted">
@@ -464,7 +462,7 @@ function RegistrarPatrullas() {
                         </Form.Text>
                         </Form.Group>
 
-                        <Form.Group controlId="ejeX">
+                        <Form.Group controlId="ejeX_3">
                             <Form.Label>X</Form.Label>
                             <Form.Control type="text" placeholder="" />
                             <Form.Text className="text-muted">
@@ -472,7 +470,7 @@ function RegistrarPatrullas() {
                         </Form.Text>
                         </Form.Group>
 
-                        <Form.Group controlId="ejeY">
+                        <Form.Group controlId="ejeY_3">
                             <Form.Label>Y</Form.Label>
                             <Form.Control type="text" placeholder="" />
                             <Form.Text className="text-muted">
@@ -726,7 +724,7 @@ function ManagerAuthOn({ state, outUser }) {
 }
 
 function Manager({ state, outUser }) {
-    console.log(state);
+    
     if (state.email && state.token) {
         return <ManagerAuthOn state={state} outUser={outUser} />
     }
