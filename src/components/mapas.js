@@ -33,8 +33,8 @@ function MapasAuthOff() {
 }
 function MapasAuthOn({ state }) {
  
-  const [{ data: alertas, loading: loading_alerta, error: error_alerta }] = useAxios(
-    'http://localhost:3000/api/read_alertas'
+  const [{ data: alertas, loading: loading_alerta, error: error_alerta}, {refetch : alertasUpdate}] = useAxios(
+    'http://localhost:3000/api/alertas_sensor_1'
   )
   const [{ data: sensores, loading: loading_sensores, error: error_sensores }] = useAxios(
     'http://localhost:3000/api/read_sensores'
@@ -42,15 +42,22 @@ function MapasAuthOn({ state }) {
   const [{ data: patrullas, loading: loading_patrullas, error: error_patrullas }] = useAxios(
     'http://localhost:3000/api/read_patrullas'
   )
-  if (loading_alerta && loading_sensores && loading_patrullas) return <p>Loading...</p>
-  if (error_alerta && error_sensores && error_patrullas) return <p>Error!</p>
+
+  const [{ data: sensor_1, loading: loading_sensor_1, error: error_sensor_1}, {refetch : sensor_1_Update}] = useAxios(
+    'http://localhost:3000/api/read_sensor_1'
+  )
+  if (loading_alerta || loading_sensores || loading_patrullas || loading_sensor_1) return <p>Loading...</p>
+  if (error_alerta || error_sensores || error_patrullas || error_sensor_1) return <p>Error!</p>
+  
   var notificaciones;
   var listaDeSensores;
   var listaDePatrullas;
   var ver;
-  if (alertas) {
-    ver = alertas.alertas;
-    notificaciones = ver.map((alerta, id) =>
+
+
+  if (alertas[0]) {
+  
+    notificaciones = alerta[0].map((alerta, id) =>
       <div key={id + "-nt"} id={id + "-nt"} >
         <br></br>
         <div className="nota">
@@ -68,23 +75,52 @@ function MapasAuthOn({ state }) {
           <Row>
             <Col xs lg={6}>
               <hr></hr>
-              <h6>Email: {alerta.emailDestino}</h6>
-              <h6>Ubicacion: {alerta.ubicacion}</h6>
+              <h6>Nombre: {alerta.name}</h6>
               <h6>Serial: {alerta.serial}</h6>
             </Col>
             <Col xs lg={6}>
               <hr></hr>
-              <h6>Hora: {alerta.hora}</h6>
-              <h6>Fecha: {alerta.fecha}</h6>
+              <h6>Valor maximo: 70db</h6>
+              <h6>Tiemp: {alerta.time}</h6>
               <hr></hr>
             </Col>
           </Row>
+          
+        </div>
+      </div>
+    );
+  }
+  if (alertas[1]) {
+  
+    notificaciones = alerta[1].map((alerta, id) =>
+      <div key={id + "b" + "-nt"} id={id + "b" + "-nt"} >
+        <br></br>
+        <div className="nota">
           <Row>
-            <Col xs lg={12}>
-              <h6>Informacion:</h6>
-              <p>{alerta.informacion}</p>
+            <Col xs lg={6}>
+              <h4>{alerta.nombre}</h4>
+            </Col>
+            <Col xs lg={6}>
+              <div className="button-enviar-cerrar">
+                <Button variant="outline-danger" id={id} onClick={(e) => cerrar(e.target.id + "b")}>X</Button>
+              </div>
+             
             </Col>
           </Row>
+          <Row>
+          <Col xs lg={6}>
+              <hr></hr>
+              <h6>Nombre: {alerta.name}</h6>
+              <h6>Serial: {alerta.serial}</h6>
+            </Col>
+            <Col xs lg={6}>
+              <hr></hr>
+              <h6>Valor maximo: 60db</h6>
+              <h6>Tiemp: {alerta.time}</h6>
+              <hr></hr>
+            </Col>
+          </Row>
+         
         </div>
       </div>
     );
